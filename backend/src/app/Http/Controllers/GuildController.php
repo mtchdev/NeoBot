@@ -12,6 +12,7 @@ class GuildController extends Controller
 
         $guild->guild_id = $request->input('guild_id');
         $guild->owner_id = $request->input('owner_id');
+        $guild->command_prefix = '!';
 
         $guild->save();
     }
