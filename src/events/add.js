@@ -7,8 +7,8 @@ module.exports = guild => {
         owner_id: guild.ownerID
     }
 
-    axios.post('localhost:8000/guild/add', data, (err) => {
-        console.log(err);
-    });
-    
+    axios.post('http://localhost:8000/guild/add', data).catch(err => {
+        console.log(err)
+    })
+
 }
