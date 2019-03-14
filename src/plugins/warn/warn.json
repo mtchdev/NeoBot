@@ -1,0 +1,11 @@
+{
+    "meta": {
+        "plugin": "warn",
+        "description": "Warn a user",
+        "usage": "warn [user] [reason]"
+    },
+    "config": {
+        "notify": true,
+        "notifyMsg": "You were warned on [server] for [reason]"
+    }
+}

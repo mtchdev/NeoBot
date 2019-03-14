@@ -1,0 +1,24 @@
+{
+  "name": "Neo",
+  "version": "1.0.0",
+  "description": "NeoBot (Neo) is a multiple-server Discord bot that provides moderation, entertainment and interaction between users.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whenofficial/Neo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whenofficial/Neo/issues"
+  },
+  "homepage": "https://github.com/whenofficial/Neo#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}
