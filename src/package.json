@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/whenofficial/Neo#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "discord.js": "^11.4.2"
   }
 }
