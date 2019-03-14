@@ -15,4 +15,10 @@ class GuildController extends Controller
 
         $guild->save();
     }
+
+    function remove(Request $request) {
+        $guild = Guild::where('guild_id', $request->input('guild_id'))->first();
+
+        $guild->delete();
+    }
 }
