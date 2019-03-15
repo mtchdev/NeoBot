@@ -25,6 +25,12 @@ module.exports = message => {
             Message.warning(`${prefix}${cmd} is not a command.`, message);
             return;
         }
+
+
+        // Run command
+
+        let file = require(`./plugins/${cmd}/${cmd}.js`);
+        file.run(message, client, args);
         
     })
     .catch(err => {
