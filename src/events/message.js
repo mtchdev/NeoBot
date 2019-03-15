@@ -29,7 +29,7 @@ module.exports = message => {
 
         // Run command
 
-        let file = require(`./plugins/${cmd}/${cmd}.js`);
+        let file = require(`../plugins/${cmd}/${cmd}.js`);
         file.run(message, client, args);
         
     })
