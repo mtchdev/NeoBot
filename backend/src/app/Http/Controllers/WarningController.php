@@ -13,16 +13,18 @@ class WarningController extends Controller
 
         $count++;
 
+        $case = 'W'.$count;
+
         $warn = new Warning;
 
-        $warn->case = $count;
+        $warn->case = $case;
         $warn->user = $request->input('user');
         $warn->reason = $request->input('reason');
         $warn->actor = $request->input('actor');
         $warn->guild_id = $request->input('guild_id');
 
         if($warn->save()){
-            return response()->json(['message'=>'200','case'=>$count]);
+            return response()->json(['message'=>200,'case'=>$case]);
         }
     }
 }
