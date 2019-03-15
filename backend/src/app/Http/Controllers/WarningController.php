@@ -3,28 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Warning;
+use App\Cases;
 
 class WarningController extends Controller
 {
     function new(Request $request) {
-        $slug = Warning::all();
+        $slug = Cases::all();
         $count = count($slug);
 
         $count++;
 
-        $case = 'W'.$count;
+        $warn = new Cases;
 
-        $warn = new Warning;
-
-        $warn->case = $case;
+        $warn->case = $count;
         $warn->user = $request->input('user');
         $warn->reason = $request->input('reason');
         $warn->actor = $request->input('actor');
         $warn->guild_id = $request->input('guild_id');
 
         if($warn->save()){
-            return response()->json(['message'=>200,'case'=>$case]);
+            return response()->json(['message'=>200,'case'=>$count]);
         }
     }
 }
