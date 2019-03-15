@@ -1,6 +1,7 @@
 const meta = require('./warn.json');
 const wMessage = require('../../messages/warning');
 const sMessage = require('../../messages/success');
+const axios = require('axios');
 
 exports.run = (message, client, args) => {
     // !warn [user] [reason]
@@ -17,8 +18,19 @@ exports.run = (message, client, args) => {
         return;
     }
 
-    user.send(`You were warned on ${message.guild.name}: ${reason}`);
+    let data = {
+        guild_id: message.guild.id,
+        user: user.id,
+        reason: reason,
+        actor: message.author.id
+    }
 
-    sMessage(`Warned ${user} for ${reason}`, message);
+    axios.post('http://localhost:8000/warn/new', data).then(res => {
+        if(res.data.message !== 200) return;
+        sMessage('`[CASE #'+res.data.case+']`Warned '+user+' for '+reason, message);
+        user.send(`You were warned on ${message.guild.name}: ${reason}`);
+    }).catch(err => {
+        wMessage(err, message);
+    });
 
 }
