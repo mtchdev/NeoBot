@@ -15,6 +15,7 @@ class WarningController extends Controller
 
         $warn = new Cases;
 
+        $warn->type = 'warn';
         $warn->case = $count;
         $warn->user = $request->input('user');
         $warn->reason = $request->input('reason');
