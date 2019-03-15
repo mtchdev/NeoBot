@@ -1,0 +1,7 @@
+{
+    "meta": {
+        "plugin": "cases",
+        "description": "Find & search cases of a user",
+        "usage": "cases [user] |expand|"
+    }
+}
