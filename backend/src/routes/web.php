@@ -18,3 +18,4 @@ Route::get('/', function () {
 Route::post('/guild/add', 'GuildController@add');
 Route::post('/guild/remove', 'GuildController@remove');
 Route::get('/guild/get', 'GuildController@getInfo');
+Route::post('/warn/new', 'WarningController@new');
