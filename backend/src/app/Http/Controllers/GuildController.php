@@ -24,8 +24,8 @@ class GuildController extends Controller
     }
 
     function getInfo(Request $request) {
-        $guild = Guild::where('guild_id', $request->input('guild_id'))->first();
+        $guild = Guild::where('guild_id', $request->header('guild_id'))->first();
 
-        return response()->json([$guild]);
+        return response()->json(['prefix' => $guild->command_prefix]);
     }
 }
