@@ -22,4 +22,10 @@ class GuildController extends Controller
 
         $guild->delete();
     }
+
+    function getInfo(Request $request) {
+        $guild = Guild::where('guild_id', $request->input('guild_id'))->first();
+
+        return response()->json([$guild]);
+    }
 }
