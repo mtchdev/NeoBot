@@ -1,4 +1,4 @@
-module.exports.warning = (msg, message) => {
+module.exports = (msg, message) => {
     message.channel.send({embed: {
         color: 15158332,
         title: "Error",
