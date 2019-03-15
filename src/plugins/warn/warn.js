@@ -14,7 +14,7 @@ exports.run = (message, client, args) => {
 
     if(typeof user === 'undefined') {
         message.delete();
-        wMessage('Please @mention a user to warn.', message);
+        wMessage('Please @mention a user on this server to warn.', message);
         return;
     }
 
