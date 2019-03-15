@@ -34,3 +34,7 @@ exports.run = (message, client, args) => {
     });
 
 }
+
+usage = (meta, message) => {
+    return message.channel.send('Usage: `'+meta.meta.usage+'`');
+}
