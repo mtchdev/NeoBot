@@ -1,6 +1,7 @@
 const settings = require('../settings.json')
 const axios = require('axios');
 const fs = require('fs');
+const Message = require('../messages/warning');
 
 module.exports = message => {
     if(!message.guild) return;
@@ -14,13 +15,14 @@ module.exports = message => {
         const client = message.client;
         const args = message.content.split(' ');
         const cmd = args.shift().slice(res.data.prefix.length).toLowerCase();
+        let prefix = res.data.prefix;
 
-        
+
         // Check if command file exists
 
         if (!fs.existsSync('./plugins/'+cmd+'/'+cmd+'.json')) {
             message.delete();
-            message.reply(`\`${res.data.prefix}${cmd}\` is not a command.`)
+            Message.warning(`${prefix}${cmd} is not a command.`, message);
             return;
         }
         
