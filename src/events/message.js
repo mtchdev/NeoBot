@@ -17,6 +17,10 @@ module.exports = message => {
         const cmd = args.shift().slice(res.data.prefix.length).toLowerCase();
         let prefix = res.data.prefix;
 
+        // Checking
+
+        if (cmd.length === 0) return;
+
 
         // Check if command file exists
 
