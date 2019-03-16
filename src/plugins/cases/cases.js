@@ -8,7 +8,7 @@ exports.run = (message, client, args) => {
 
     if(!args[0]) {
         message.delete();
-        wMessage('Please enter a case ID!', message);
+        wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
         return;
     }
 
