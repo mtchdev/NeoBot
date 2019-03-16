@@ -35,6 +35,9 @@ exports.run = (message, client, args) => {
             case "warn":
                 color = 15322429;
             break;
+            case "ban":
+                color = 15945263;
+            break;
         }
 
         client.fetchUser(data.user).then(a => {
