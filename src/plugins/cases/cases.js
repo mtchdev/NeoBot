@@ -24,7 +24,7 @@ exports.run = (message, client, args) => {
         
         let arr = res.data.data;
 
-        if (arr.length === 0 || null){
+        if ([0, null].indexOf(arr.length) +1){
             message.channel.send('<@'+user+'> has 0 cases.');
             return;
         }
