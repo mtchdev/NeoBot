@@ -1,0 +1,7 @@
+{
+    "meta": {
+        "plugin": "unban",
+        "description": "Unban a user",
+        "usage": "unban [id]"
+    }
+}

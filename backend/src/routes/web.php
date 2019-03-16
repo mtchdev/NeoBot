@@ -23,3 +23,4 @@ Route::get('/cases/get', 'CasesController@get');
 Route::get('/cases/specific', 'CasesController@getSpecific');
 Route::post('/cases/delete', 'CasesController@delete');
 Route::post('/ban/new', 'BanController@new');
+Route::post('/ban/unban', 'BanController@unban');
