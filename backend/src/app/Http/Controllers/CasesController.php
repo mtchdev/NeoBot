@@ -11,4 +11,9 @@ class CasesController extends Controller
         $case = Cases::where('user', $request->header('user'))->get()->toArray();
         return response()->json(['message'=>200,'data'=>$case]);
     }
+
+    function getSpecific(Request $request) {
+        $case = Cases::where('case', $request->header('case'))->get();
+        return response()->json(['message'=>200,'data'=>$case]);
+    }
 }
