@@ -13,7 +13,6 @@ exports.run = (message, client, args) => {
     let user = message.mentions.users.first();
 
     if(typeof user === 'undefined') {
-        message.delete();
         wMessage('Please @mention a user on this server to warn.', message);
         return;
     }
@@ -21,7 +20,6 @@ exports.run = (message, client, args) => {
     let plainid = args[0].replace(/[<@>]/g,'');
 
     if(plainid === message.author.id) {
-        message.delete();
         wMessage(`You can't warn yourself!`, message);
         return;
     }

@@ -7,7 +7,6 @@ exports.run = (message, client, args) => {
     // !cases [user]
 
     if(!args[0]) {
-        message.delete();
         wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
         return;
     }
@@ -15,7 +14,6 @@ exports.run = (message, client, args) => {
     let user = args[0].replace(/[<@>]/g,'');
 
     if(typeof user === 'undefined') {
-        message.delete();
         wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
         return;
     }
