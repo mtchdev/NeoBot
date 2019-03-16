@@ -12,6 +12,16 @@ exports.run = (message, client, args) => {
     }
 
     let x = Number(args[0]);
+    let param = args[1];
+
+    if(['-del', '-d'].indexOf(param) +1) {
+      axios.post('http://localhost:8000/cases/delete', {case:x}).then(res => {
+        sMessage('Successfully deleted case `#'+x+'`!', message);
+      }).catch(err => {
+        wMessage(err, message);
+      })
+      return;
+    }
     
     if(isNaN(x)) return;
 
@@ -64,6 +74,8 @@ exports.run = (message, client, args) => {
             })
         });
 
+    }).catch(err => {
+      wMessage('Case not found.', message);
     })
 
 }

@@ -21,3 +21,4 @@ Route::get('/guild/get', 'GuildController@getInfo');
 Route::post('/warn/new', 'WarningController@new');
 Route::get('/cases/get', 'CasesController@get');
 Route::get('/cases/specific', 'CasesController@getSpecific');
+Route::post('/cases/delete', 'CasesController@delete');

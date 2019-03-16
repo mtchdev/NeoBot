@@ -19,4 +19,11 @@ class CasesController extends Controller
         $date = $slug->format('Y-m-d\TH:i:s.\0\0\0\Z');
         return response()->json(['message'=>200,'data'=>$case,'time'=>$date]);
     }
+
+    function delete(Request $request) {
+        $case = Cases::where('case', $request->input('case'))->first();
+        if($case->delete()){
+            return response()->json(['message'=>200]);
+        }
+    }
 }
