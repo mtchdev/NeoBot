@@ -15,7 +15,7 @@ exports.run = (message, client, args) => {
             role.setPermissions(0).then(() => {
                 axios.post('http://localhost:8000/config/roles/muted/set', {guild_id:message.guild.id,role_id:role.id}).then(res => {
                     if(res.data.message == 200){
-                        sMessage('Successfully initialized mute feature.', message);
+                        sMessage('Successfully initialized mute feature. You will need to adjust the permissions (disable sending messages) for **@'+role.name+'** in each channel.', message);
                     };
                 }).catch(err => {
                     wMessage(err, message);
