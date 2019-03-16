@@ -1,7 +1,7 @@
 const settings = require('../settings.json')
 const axios = require('axios');
 const fs = require('fs');
-const Message = require('../messages/warning');
+const wMessage = require('../messages/warning');
 
 module.exports = message => {
     if(!message.guild) return;
@@ -26,7 +26,7 @@ module.exports = message => {
 
         if (!fs.existsSync('./plugins/'+cmd+'/'+cmd+'.json')) {
             message.delete();
-            Message.warning(`${prefix}${cmd} is not a command.`, message);
+            wMessage(`${prefix}${cmd} is not a command.`, message);
             return;
         }
 
