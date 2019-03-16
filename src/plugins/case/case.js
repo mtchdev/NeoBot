@@ -74,7 +74,8 @@ exports.run = (message, client, args) => {
             })
         });
 
-    }).catch(err => {
+    }).catch(() => {
+      message.delete();
       wMessage('Case not found.', message);
     })
 
