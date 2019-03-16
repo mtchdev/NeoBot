@@ -6,17 +6,13 @@ const axios = require('axios');
 exports.run = (message, client, args) => {
     // !cases [user]
 
-    if(!args[0]) {
-        wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
-        return;
-    }
+    if(!args[0])
+        return wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
 
     let user = args[0].replace(/[<@>]/g,'');
 
-    if(typeof user === 'undefined') {
-        wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
-        return;
-    }
+    if(typeof user === 'undefined')
+        return wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
 
     axios.get('http://localhost:8000/cases/get', {headers:{user:user}}).then(res => {
         

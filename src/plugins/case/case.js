@@ -6,10 +6,8 @@ const axios = require('axios');
 exports.run = (message, client, args) => {
     // !case [number]
 
-    if(args[0] === null) {
-        wMessage('Please enter a case ID.', message);
-        return;
-    }
+    if(args[0] === null)
+        return wMessage('Please enter a case ID.', message);
 
     let x = Number(args[0]);
     let param = args[1];
