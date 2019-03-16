@@ -43,6 +43,9 @@ exports.run = (message, client, args) => {
             let user = message.mentions.members.first();
             let reason = args.slice(1).join(' ');
 
+            if(user.id == message.author.id)
+                return wMessage('You cannot mute yourself!', message);
+
             let data = {
                 guild_id: message.guild.id,
                 actor: message.author.id,
