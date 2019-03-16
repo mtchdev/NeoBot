@@ -20,13 +20,13 @@ exports.run = (message, client, args) => {
 
         client.fetchUser(user).then(guildUser => {
             if ([0, null].indexOf(arr.length) +1){
-                message.channel.send('**'+guildUser.username+'** has 0 cases.');
+                message.channel.send('**'+guildUser.username+'#'+guildUser.discriminator+'** has 0 cases.');
                 return;
             }
     
             let cases;
             arr.length >= 2 ? cases='cases' : cases='case';
-            message.channel.send('Found '+arr.length+' '+cases+' for **'+guildUser.username+'**:');
+            message.channel.send('Found '+arr.length+' '+cases+' for **'+guildUser.username+'#'+guildUser.discriminator+'**:');
             for (let i = 0; i < arr.length; i++) {
                 const element = arr[i];
                 let type = element.type.charAt(0).toUpperCase() + element.type.slice(1);
