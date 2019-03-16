@@ -21,7 +21,7 @@ exports.run = (message, client, args) => {
         }
         axios.post('http://localhost:8000/ban/unban', data).then(res => {
             if(res.data.message !== 200) return;
-            sMessage('`[CASE #'+res.data.case+']` Unbanned '+guildUser.username+'.', message);
+            sMessage('`[CASE #'+res.data.case+']` Unbanned '+guildUser.username+'#'+guildUser.discriminator+'.', message);
         }).catch(err => {
             wMessage(err, message);
         });
