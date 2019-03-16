@@ -1,0 +1,7 @@
+{
+    "meta": {
+        "plugin": "mute",
+        "description": "Mute a user",
+        "usage": "mute [user] [reason]"
+    }
+}
