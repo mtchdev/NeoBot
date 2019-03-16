@@ -26,7 +26,7 @@ module.exports = message => {
 
         if (!fs.existsSync('./plugins/'+cmd+'/'+cmd+'.json')) {
             message.delete();
-            wMessage(`${prefix}${cmd} is not a command.`, message);
+            wMessage('`'+prefix+cmd+'` is not a command.', message);
             return;
         }
 
