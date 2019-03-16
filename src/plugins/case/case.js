@@ -19,6 +19,7 @@ exports.run = (message, client, args) => {
         let data = res.data.data;
         let type = data.type.charAt(0).toUpperCase() + data.type.slice(1);
         var color;
+        var avatarURL;
 
         switch(data.type) {
             case "warn":
@@ -26,36 +27,43 @@ exports.run = (message, client, args) => {
             break;
         }
 
-        message.channel.send({
-            "embed": {
-              "color": color,
-              "timestamp": `${res.data.time}`,
-              "author": {
-                "name": `CASE #${data.case}`
-              },
-              "fields": [
-                {
-                  "name": "Type",
-                  "value": type,
-                  "inline": true
-                },
-                {
-                  "name": "Actor",
-                  "value": `<@${data.actor}>`,
-                  "inline": true
-                },
-                {
-                  "name": "User",
-                  "value": `<@${data.user}>`,
-                  "inline": true
-                },
-                {
-                  "name": "Reason",
-                  "value": data.reason
+        client.fetchUser(data.user).then(a => {
+            avatarURL = a.avatarURL;
+            message.channel.send({
+                "embed": {
+                  "color": color,
+                  "timestamp": `${res.data.time}`,
+                  "author": {
+                    "name": `CASE #${data.case}`
+                  },
+                  "thumbnail": {
+                    "url": avatarURL
+                  },
+                  "fields": [
+                    {
+                      "name": "Type",
+                      "value": type,
+                      "inline": true
+                    },
+                    {
+                      "name": "User",
+                      "value": `<@${data.user}>`,
+                      "inline": true
+                    },
+                    {
+                        "name": "Actor",
+                        "value": `<@${data.actor}>`,
+                        "inline": true
+                    },
+                    {
+                      "name": "Reason",
+                      "value": data.reason
+                    }
+                  ]
                 }
-              ]
-            }
-        })
+            })
+        });
+
     })
 
 }
