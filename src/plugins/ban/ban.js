@@ -36,6 +36,25 @@ exports.run = (message, client, args) => {
         .catch(err => {
             wMessage(err, message);
         });
+    }).catch(err => {
+        user.ban(reason)
+        .then(() => {
+            let data = {
+                guild_id: message.guild.id,
+                user: user.id,
+                reason: reason,
+                actor: message.author.id
+            }
+            axios.post('http://localhost:8000/ban/new', data).then(res => {
+                if(res.data.message !== 200) return;
+                sMessage('`[CASE #'+res.data.case+']` Banned '+user+' for '+reason, message);
+            }).catch(err => {
+                wMessage(err, message);
+            });
+        })
+        .catch(err => {
+            wMessage(err, message);
+        });
     });
 
 }
