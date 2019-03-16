@@ -8,7 +8,7 @@ exports.run = (message, client, args) => {
 
     if(args[0] === null) return;
 
-    let user = args[0].replace(/[<@>]/g,'');;
+    let user = args[0].replace(/[<@>]/g,'');
 
     if(typeof user === 'undefined') {
         message.delete();
