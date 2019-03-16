@@ -6,10 +6,11 @@ const axios = require('axios');
 exports.run = (message, client, args) => {
     // !warn [user] [reason]
 
-    if(args[0] === null)
+    if(!args[0])
         return wMessage('Please provide a user to warn.', message);
-    if(args[1] === null)
-        return wMessage('Please enter a reason.', message);
+
+    if(!args[1])
+        return wMessage('Please provide a reason.', message);
 
     let reason = args.slice(1).join(' ');
     let user = message.mentions.users.first();
