@@ -16,10 +16,10 @@ exports.run = (message, client, args) => {
     if(isNaN(x)) return;
 
     axios.get('http://localhost:8000/cases/specific', {headers:{case:x}}).then(res => {
-        let data = res.data.data[0];
+        let data = res.data.data;
         let type = data.type.charAt(0).toUpperCase() + data.type.slice(1);
         var color;
-        
+
         switch(data.type) {
             case "warn":
                 color = 15322429;
@@ -29,7 +29,7 @@ exports.run = (message, client, args) => {
         message.channel.send({
             "embed": {
               "color": color,
-              "timestamp": `${data.created_at}`,
+              "timestamp": `${res.data.time}`,
               "author": {
                 "name": `CASE #${data.case}`
               },
