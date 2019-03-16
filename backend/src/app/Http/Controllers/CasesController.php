@@ -14,14 +14,14 @@ class CasesController extends Controller
     }
 
     function getSpecific(Request $request) {
-        $case = Cases::where('case', $request->header('case'))->first();
+        $case = Cases::where('id', $request->header('case'))->first();
         $slug = new DateTime($case->created_at);
         $date = $slug->format('Y-m-d\TH:i:s.\0\0\0\Z');
         return response()->json(['message'=>200,'data'=>$case,'time'=>$date]);
     }
 
     function delete(Request $request) {
-        $case = Cases::where('case', $request->input('case'))->first();
+        $case = Cases::where('id', $request->input('case'))->first();
         if($case->delete()){
             return response()->json(['message'=>200]);
         }

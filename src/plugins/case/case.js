@@ -44,7 +44,7 @@ exports.run = (message, client, args) => {
                   "color": color,
                   "timestamp": `${res.data.time}`,
                   "author": {
-                    "name": `CASE #${data.case}`
+                    "name": `CASE #${data.id}`
                   },
                   "thumbnail": {
                     "url": avatarURL

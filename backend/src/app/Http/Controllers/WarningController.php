@@ -8,22 +8,22 @@ use App\Cases;
 class WarningController extends Controller
 {
     function new(Request $request) {
-        $slug = Cases::all();
-        $count = count($slug);
-
-        $count++;
-
         $warn = new Cases;
 
+        $case = \DB::table('cases')->max('id')+1;
+
+        $unique_id = $request->input('user').$request->input('actor').time();
+
         $warn->type = 'warn';
-        $warn->case = $count;
+        $warn->unique_id = $unique_id;
         $warn->user = $request->input('user');
         $warn->reason = $request->input('reason');
         $warn->actor = $request->input('actor');
         $warn->guild_id = $request->input('guild_id');
 
         if($warn->save()){
-            return response()->json(['message'=>200,'case'=>$count]);
+            $warnn = Cases::where('unique_id', $unique_id)->first();
+            return response()->json(['message'=>200,'case'=>$warnn->id]);
         }
     }
 }
