@@ -34,6 +34,30 @@ exports.run = (message, client, args) => {
     axios.get('http://localhost:8000/config/roles/muted/get', {headers:{guild_id:message.guild.id}}).then(res => {
         if(['', null].indexOf(res.data.role) +1)
             return wMessage('The mute feature isn\'t set up yet! Run `!mute -init` to begin.', message);
-    })
+
+            if(!args[0])
+                return wMessage('Please @mention a user or paste their ID to mute.', message);
+            if(!args[1])
+                return wMessage('Please provide a reason.', message);
+
+            let user = message.mentions.members.first();
+            let reason = args.slice(1).join(' ');
+
+            let data = {
+                guild_id: message.guild.id,
+                actor: message.author.id,
+                user: user.id,
+                reason: reason
+            };
+
+            axios.post('http://localhost:8000/mute/new', data).then(resp => {
+                if(resp.data.message !== 200) return;
+                user.addRole(res.data.role);
+                sMessage('`[CASE #'+resp.data.case+']` Muted '+user+' for '+reason, message);
+                user.send(`You were muted on ${message.guild.name}: ${reason}`);
+            }).catch(err => {
+                wMessage(err, message);
+            });
+    });
 
 }
