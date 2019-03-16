@@ -25,3 +25,4 @@ Route::post('/cases/delete', 'CasesController@delete');
 Route::post('/ban/new', 'BanController@new');
 Route::post('/ban/unban', 'BanController@unban');
 Route::get('/config/roles/muted/get', 'RolesController@getMuted');
+Route::post('/config/roles/muted/set', 'RolesController@setMuted');

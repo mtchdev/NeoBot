@@ -13,6 +13,10 @@ class RolesController extends Controller
     }
     
     public function setMuted(Request $request) {
-
+        $guild = Guild::where('guild_id', $request->input('guild_id'))->first();
+        $guild->muted_role = $request->input('role_id');
+        if($guild->save()){
+            return response()->json(['message'=>200]);
+        }
     }
 }
