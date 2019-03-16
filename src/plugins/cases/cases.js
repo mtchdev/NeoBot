@@ -6,7 +6,11 @@ const axios = require('axios');
 exports.run = (message, client, args) => {
     // !cases [user]
 
-    if(args[0] === null) return;
+    if(!args[0]) {
+        message.delete();
+        wMessage('Please enter a case ID!', message);
+        return;
+    }
 
     let user = args[0].replace(/[<@>]/g,'');
 
