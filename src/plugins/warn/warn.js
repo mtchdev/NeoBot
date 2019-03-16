@@ -17,6 +17,14 @@ exports.run = (message, client, args) => {
         wMessage('Please @mention a user on this server to warn.', message);
         return;
     }
+    
+    let plainid = args[0].replace(/[<@>]/g,'');
+
+    if(plainid === message.author.id) {
+        message.delete();
+        wMessage(`You can't warn yourself!`, message);
+        return;
+    }
 
     let data = {
         guild_id: message.guild.id,
