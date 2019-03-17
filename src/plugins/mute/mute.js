@@ -45,6 +45,8 @@ exports.run = (message, client, args) => {
 
         if(user.id == message.author.id)
             return wMessage('You cannot mute yourself!', message);
+        if(user.roles.has(res.data.role))
+            return wMessage('**'+user.user.username+'#'+user.user.discriminator+'** is already muted!', message);
 
         let data = {
             guild_id: message.guild.id,
