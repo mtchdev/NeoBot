@@ -43,7 +43,7 @@ exports.run = (message, client, args) => {
                 color = 3375305;
             break;
             case "unmute":
-                color: 3594411;
+                color = 3594411;
             break;
         }
 
