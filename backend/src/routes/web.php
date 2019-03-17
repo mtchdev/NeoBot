@@ -27,3 +27,4 @@ Route::post('/ban/unban', 'BanController@unban');
 Route::get('/config/roles/muted/get', 'RolesController@getMuted');
 Route::post('/config/roles/muted/set', 'RolesController@setMuted');
 Route::post('/mute/new', 'MuteController@new');
+Route::post('/mute/unmute', 'MuteController@unmute');

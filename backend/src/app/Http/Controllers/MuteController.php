@@ -26,4 +26,24 @@ class MuteController extends Controller
             return response()->json(['message'=>200,'case'=>$mutee->id]);
         }
     }
+
+    function unmute(Request $request){
+        $unmute = new Cases;
+
+        $case = \DB::table('cases')->max('id')+1;
+
+        $unique_id = $request->input('user').$request->input('actor').time();
+
+        $unmute->type = 'unmute';
+        $unmute->unique_id = $unique_id;
+        $unmute->user = $request->input('user');
+        $unmute->reason = 'N/A';
+        $unmute->actor = $request->input('actor');
+        $unmute->guild_id = $request->input('guild_id');
+
+        if($unmute->save()){
+            $unmutee = Cases::where('unique_id', $unique_id)->first();
+            return response()->json(['message'=>200,'case'=>$unmutee->id]);
+        }
+    }
 }
