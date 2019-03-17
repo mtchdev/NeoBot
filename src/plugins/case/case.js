@@ -42,6 +42,9 @@ exports.run = (message, client, args) => {
             case "mute":
                 color = 3375305;
             break;
+            case "unmute":
+                color: 3594411;
+            break;
         }
 
         client.fetchUser(data.user).then(a => {
