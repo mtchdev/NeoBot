@@ -20,7 +20,7 @@ exports.run = (message, client, args) => {
         }
         axios.post('http://localhost:8000/mute/unmute', data).then(resp => {
             user.removeRole(res.data.role);
-            sMessage('`[CASE #'+resp.data.case+']` Unmuted **'+user.username+'#'+user.discriminator+'**.', message);
+            sMessage('`[CASE #'+resp.data.case+']` Unmuted **'+user.user.username+'#'+user.user.discriminator+'**.', message);
             user.send(`You were unmuted on ${message.guild.name}.`);
         }).catch(err => {
             wMessage(err, message);
