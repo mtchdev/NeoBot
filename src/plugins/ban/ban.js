@@ -39,7 +39,7 @@ exports.run = (message, client, args) => {
         .catch(err => {
             wMessage(err, message);
         });
-    }).catch(err => {
+    }).catch(() => {
         user.ban(reason)
         .then(() => {
             let data = {
