@@ -54,4 +54,9 @@ class MuteController extends Controller
             return response()->json(['message'=>200,'case'=>$unmutee->id]);
         }
     }
+
+    function get(Request $request) {
+        $mute = Mute::where('user', $request->header('user_id'))->first();
+        return response()->json(['message'=>200,'data'=>$mute]);
+    }
 }
