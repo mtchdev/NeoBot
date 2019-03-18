@@ -3,4 +3,5 @@ module.exports = client => {
     client.on('guildCreate', event('add'));
     client.on('guildDelete', event('remove'));
     client.on('message', event('message'));
+    client.on('guildMemberAdd', event('guildMemberAdd'));
 };
