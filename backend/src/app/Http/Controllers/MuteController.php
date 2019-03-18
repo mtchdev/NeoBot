@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cases;
+use App\Mute;
 
 class MuteController extends Controller
 {
@@ -22,6 +23,10 @@ class MuteController extends Controller
         $mute->guild_id = $request->input('guild_id');
 
         if($mute->save()){
+            unset($mute);
+            $mute = new Mute;
+            $mute->user = $request->input('user');
+            $mute->save();
             $mutee = Cases::where('unique_id', $unique_id)->first();
             return response()->json(['message'=>200,'case'=>$mutee->id]);
         }
@@ -42,6 +47,9 @@ class MuteController extends Controller
         $unmute->guild_id = $request->input('guild_id');
 
         if($unmute->save()){
+            unset($unmute);
+            $unmute = Mute::where('user', $request->input('user'))->first();
+            $unmute->delete();
             $unmutee = Cases::where('unique_id', $unique_id)->first();
             return response()->json(['message'=>200,'case'=>$unmutee->id]);
         }
