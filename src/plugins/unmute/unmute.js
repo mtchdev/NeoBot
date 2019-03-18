@@ -12,6 +12,8 @@ exports.run = (message, client, args) => {
     axios.get('http://localhost:8000/config/roles/muted/get', {headers:{guild_id:message.guild.id}}).then(res => {
         if(!user.roles.has(res.data.role))
             return wMessage('User is not muted!', message);
+        if(user.id == message.author.id)
+            return wMessage('You cannot unmute yourself.', message);
 
         let data = {
             guild_id: message.guild.id,
