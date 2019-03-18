@@ -17,7 +17,7 @@ exports.run = (message, client, args) => {
     if(!user.bannable)
         return wMessage('That user cannot be banned.', message);
 
-    if(user.id === message.author.id)
+    if(user.id == message.author.id)
         return wMessage('You cannot ban yourself.', message);
 
     user.send('You were banned on '+message.guild.name+' for '+reason).then(() => {
