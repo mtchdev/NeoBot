@@ -9,14 +9,16 @@ exports.run = (message, client, args) => {
     if(!args[0])
         return wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
 
-    if(typeof user.id === 'undefined')
+    let user = args[0].replace(/[<@>]/g,'');
+
+    if(typeof user === 'undefined')
         return wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
 
     axios.get('http://localhost:8000/cases/get', {headers:{user:user}}).then(res => {
         
         let arr = res.data.data;
 
-        client.fetchUser(user.id).then(guildUser => {
+        client.fetchUser(user).then(guildUser => {
             if ([0, null].indexOf(arr.length) +1){
                 message.channel.send('**'+guildUser.username+'#'+guildUser.discriminator+'** has 0 cases.');
                 return;
