@@ -1,0 +1,7 @@
+{
+    "meta": {
+        "plugin": "forceban",
+        "description": "Forcefully ban a user",
+        "usage": "forceban [id] [reason]"
+    }
+}
