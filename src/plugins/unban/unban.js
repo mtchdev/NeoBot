@@ -24,6 +24,8 @@ exports.run = (message, client, args) => {
         }).catch(err => {
             wMessage(err, message);
         });
-    })
+    }).catch(err => {
+        wMessage('User is not banned.', message);
+    });
 
 }
