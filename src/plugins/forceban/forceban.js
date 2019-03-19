@@ -12,7 +12,7 @@ exports.run = (message, client, args) => {
 
     let reason = args.slice(1).join(' ');
 
-    let user = client.fetchUser(args[0]).then(guildUser => {
+    client.fetchUser(args[0]).then(guildUser => {
         message.guild.ban(guildUser.id).then(() => {
             let data = {
                 guild_id: message.guild.id,
