@@ -9,6 +9,8 @@ exports.run = (message, client, args) => {
         return wMessage('Please specify a user ID to ban.', message);
     if(!args[1])
         return wMessage('Please provide a reason.', message);
+    if(args[0] === message.author.id)
+        return wMessage('You cannot ban yourself!', message);
 
     let reason = args.slice(1).join(' ');
 
