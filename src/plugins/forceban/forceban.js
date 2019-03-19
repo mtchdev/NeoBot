@@ -28,7 +28,7 @@ exports.run = (message, client, args) => {
             });
         })
     }).catch(err => {
-        wMessage('User does not exist.'+err, message);
+        wMessage('User does not exist.', message);
     });
 
 }
