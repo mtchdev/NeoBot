@@ -25,9 +25,9 @@ class Unban extends Command {
     async unban(guild, user, actor) {
         message.guild.unban(user).then(guildUser => {
             let data = {
-                guild_id: message.guild.id,
+                guild_id: guild,
                 user: user,
-                actor: message.author.id
+                actor: actor
             }
             axios.post('http://localhost:8000/ban/unban', data).then(res => {
                 if(res.data.message !== 200) return;
