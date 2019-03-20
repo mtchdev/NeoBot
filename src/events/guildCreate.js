@@ -9,6 +9,6 @@ module.exports = guild => {
 
     axios.post('http://localhost:8000/guild/add', data).catch(err => {
         console.log(err)
-    })
+    });
 
 }
