@@ -13,11 +13,11 @@ class Unban extends Command {
 
     async execute(client, message, args) {
         if(!args[0])
-        return wMessage('Please enter a user ID to unban.', message);
+        return Command.prototype.warn('Please enter a user ID to unban.', message);
 
         let user = args[0]
         if(typeof user == 'undefined')
-            return wMessage('Please enter a valid user ID.', message);
+            return Command.prototype.warn('Please enter a valid user ID.', message);
 
         await this.unban(message.guild.id, user, message.author.id);
     }
@@ -31,12 +31,12 @@ class Unban extends Command {
             }
             axios.post('http://localhost:8000/ban/unban', data).then(res => {
                 if(res.data.message !== 200) return;
-                sMessage('`[CASE #'+res.data.case+']` Unbanned '+guildUser.username+'#'+guildUser.discriminator+'.', message);
+                Command.prototype.success('`[CASE #'+res.data.case+']` Unbanned '+guildUser.username+'#'+guildUser.discriminator+'.', message);
             }).catch(err => {
-                wMessage(err, message);
+                Command.prototype.warn(err, message);
             });
         }).catch(() => {
-            wMessage('User is not banned.', message);
+            Command.prototype.warn('User is not banned.', message);
         });
     }
 
