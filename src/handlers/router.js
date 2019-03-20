@@ -1,4 +1,4 @@
-const Warn = require('../plugins/warn/Warn');
+const Warn = require('../commands/warn/Warn');
 
 class Router {
     constructor() {
