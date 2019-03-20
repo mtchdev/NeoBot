@@ -12,7 +12,7 @@ class Forceban {
         this.ban = this.ban.bind(this);
     }
 
-    execute(message, client, args) {
+    async execute(message, client, args) {
 
         if(!args[0])
             return Command.prototype.warn('Please specify a user ID to ban.', message);
@@ -27,7 +27,7 @@ class Forceban {
 
     }
 
-    ban(guild, user, reason, actor, message, client) {
+    async ban(guild, user, reason, actor, message, client) {
         try {
             let guildUser = await client.fetchUser(user);
             await message.guild.ban(guildUser.id);

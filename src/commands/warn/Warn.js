@@ -1,4 +1,3 @@
-import message from '../../events/message';
 const Command = require('../../structures/Command');
 
 class Warn extends Command {

@@ -13,7 +13,7 @@ class Mute extends Command {
         this.mute = this.mute.bind(this);
     }
 
-    execute(client, message, args) {
+    async execute(client, message, args) {
 
         if(['-init', '-i', '-setup'].indexOf(args[0])+1)
             return this.setup(message);
@@ -41,7 +41,7 @@ class Mute extends Command {
 
     }
 
-    setup(message) {
+    async setup(message) {
         try {
             let role = await message.guild.createRole({name: 'Muted'});
             await role.setPermissions(0);
@@ -53,7 +53,7 @@ class Mute extends Command {
         }
     }
 
-    mute(guild, actor, user, reason) {
+    async mute(guild, actor, user, reason) {
         let data = {
             guild_id: guild,
             actor: actor,
