@@ -14,11 +14,11 @@ class Unban extends Command {
 
     async execute(client, message, args) {
         if(!args[0])
-        return Command.prototype.warn('Please enter a user ID to unban.', message);
+            return await Command.prototype.warn('Please enter a user ID to unban.', message);
 
         let user = args[0]
         if(typeof user == 'undefined')
-            return Command.prototype.warn('Please enter a valid user ID.', message);
+            return await Command.prototype.warn('Please enter a valid user ID.', message);
 
         await this.unban(message.guild.id, user, message.author.id);
     }
