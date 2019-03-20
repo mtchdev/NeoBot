@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command');
 
-class Forceban {
+class Forceban extends Command {
 
     constructor() {
         super({
@@ -37,7 +37,7 @@ class Forceban {
                 reason: reason,
                 actor: actor
             }
-            let res = Command.prototype.apipost('ban/new', data);
+            let res = await Command.prototype.apipost('ban/new', data);
             Command.prototype.success('`[CASE #'+res.data.case+']` Forcebanned **'+guildUser.username+'#'+guildUser.discriminator+'** for '+reason, message);
         } catch (err) {
             Command.prototype.warn(err, message);
