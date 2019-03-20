@@ -24,7 +24,7 @@ class Unmute extends Command {
                 return Command.prototype.warn('User is not muted!', message);
             if(user.id == message.author.id)
                 return Command.prototype.warn('You cannot unmute yourself.', message);
-            await this.unmute(message.guild.id, user.id, message.author.id, res);
+            await this.unmute(message.guild.id, user, message.author.id, res);
         } catch (err) {
             Command.prototype.warn(err, message);
             return;
@@ -34,7 +34,7 @@ class Unmute extends Command {
     async unmute(guild, user, actor, res) {
         let data = {
             guild_id: guild,
-            user: user,
+            user: user.id,
             actor: actor
         }
 

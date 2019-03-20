@@ -34,13 +34,13 @@ class Warn extends Command {
         if(plainid == message.author.id)
             return Command.prototype.warn('You cannot warn yourself!', message);
 
-        await this.warn(message.guild.id, user.id, reason, message.author.id);       
+        await this.warn(message.guild.id, user, reason, message.author.id);       
     }
 
     async warn(guild, user, reason, actor){
         let data = {
             guild_id: guild,
-            user: user,
+            user: user.id,
             reason: reason,
             actor: actor
         }
