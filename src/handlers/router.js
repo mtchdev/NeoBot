@@ -13,7 +13,6 @@ class Router {
     }
 
     route(cmd, client, message, args) {
-        console.log(cmd)
         switch (cmd) {
             case "warn":
                 let warn = new Warn;
