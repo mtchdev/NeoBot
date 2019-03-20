@@ -13,12 +13,12 @@ class Mute extends Command {
         this.mute = this.mute.bind(this);
     }
 
-    async execute(client, message, args) {
+    async execute(message, client, args) {
 
         if(['-init', '-i', '-setup'].indexOf(args[0])+1)
             return this.setup(message);
 
-        let res = apiget('config/roles/muted/get', {headers:{guild_id:message.guild.id}});
+        let res = await Command.prototype.apiget('config/roles/muted/get', {headers:{guild_id:message.guild.id}});
         if(['', null].indexOf(res.data.role)+1)
             return Command.prototype.warn('The mute feature isn\'t set up yet! Run `!mute -init` to begin.', message);
         if(!message.guild.roles.has(res.data.role))
@@ -37,7 +37,7 @@ class Mute extends Command {
         if(user.roles.has(res.data.role))
             return Command.prototype.warn('User is already muted!', message);
 
-        await this.mute(message.guild.id, message.author.id, user, reason);
+        await this.mute(message.guild.id, message.author.id, user, reason, res.data.role, message);
 
     }
 
@@ -53,7 +53,7 @@ class Mute extends Command {
         }
     }
 
-    async mute(guild, actor, user, reason) {
+    async mute(guild, actor, user, reason, role, message) {
         let data = {
             guild_id: guild,
             actor: actor,
@@ -61,9 +61,9 @@ class Mute extends Command {
             reason: reason
         };
 
-        let res = await apipost('mute/new', data);
-        await user.addRole(res.data.role);
-        Command.prototype.success('`[CASE #'+resp.data.case+']` Muted '+user+' for '+reason, message);
+        let res = await Command.prototype.apipost('mute/new', data);
+        await user.addRole(role);
+        Command.prototype.success('`[CASE #'+res.data.case+']` Muted '+user+' for '+reason, message);
         user.send(`You were muted on ${message.guild.name}: ${reason}`);
     }
 
