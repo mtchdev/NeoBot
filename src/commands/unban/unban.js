@@ -8,6 +8,7 @@ class Unban extends Command {
             info: 'Unban a user',
             usage: 'unban [user]'
         });
+        
         this.unban = this.unban.bind(this);
     }
 
