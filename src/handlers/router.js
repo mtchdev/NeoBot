@@ -1,5 +1,6 @@
 const Warn = require('../commands/warn/Warn');
 const Unmute = require('../commands/unmute/Unmute');
+const Unban = require('../commands/unban/Unban');
 
 class Router {
     constructor() {
@@ -17,6 +18,9 @@ class Router {
                 let unmute = new Unmute;
                 unmute.execute(message, client, args);
                 break;
+            case "unban":
+                let unban = new Unban;
+                unban.execute(message, client, args);
         
             default:
                 break;
