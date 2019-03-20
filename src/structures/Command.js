@@ -1,8 +1,10 @@
 const axios = require('axios');
 
 class Command {
-    constructor(d){
-
+    constructor(params = {}){
+        this.name = params.name;
+        this.info = params.info;
+        this.usage = params.usage;
     }
 
     apiget(url, data) {
@@ -30,6 +32,10 @@ class Command {
             title: "Success",
             description: `✅ ${msg}`
         }});
+    }
+
+    help(message) {
+        message.channel.send('Usage: `'+usage+'`');
     }
 }
 
