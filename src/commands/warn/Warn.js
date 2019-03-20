@@ -25,7 +25,7 @@ class Warn extends Command {
         let reason = args.slice(1).join(' ');
         let user = message.mentions.users.first();
 
-        if(typeof user === 'undefined')
+        if(typeof user == 'undefined')
             return Command.prototype.warn('Please @mention a user on this server to warn.', message);
             
         let plainid = args[0].replace(/[<@>]/g,'');
