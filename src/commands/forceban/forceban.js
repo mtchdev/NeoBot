@@ -1,36 +1,48 @@
-const meta = require('./forceban.json');
-const wMessage = require('../../messages/warning');
-const sMessage = require('../../messages/success');
-const axios = require('axios');
+const Command = require('../../structures/Command');
 
-exports.run = (message, client, args) => {
+class Forceban {
 
-    if(!args[0])
-        return wMessage('Please specify a user ID to ban.', message);
-    if(!args[1])
-        return wMessage('Please provide a reason.', message);
-    if(args[0] === message.author.id)
-        return wMessage('You cannot ban yourself!', message);
+    constructor() {
+        super({
+            name: 'Forceban',
+            info: 'Forcefully bans a user if they are inaccessable on the server.',
+            usage: 'forceban [id] [reason]'
+        });
 
-    let reason = args.slice(1).join(' ');
+        this.ban = this.ban.bind(this);
+    }
 
-    client.fetchUser(args[0]).then(guildUser => {
-        message.guild.ban(guildUser.id).then(() => {
+    execute(message, client, args) {
+
+        if(!args[0])
+            return Command.prototype.warn('Please specify a user ID to ban.', message);
+        if(!args[1])
+            return Command.prototype.warn('Please provide a reason.', message);
+        if(args[0] == message.author.id)
+            return Command.prototype.warn('You cannot ban yourself!', message);
+
+        let reason = args.slice(1).join(' ');
+
+        await this.ban(message.guild.id, args[0], reason, message.author.id, message, client);
+
+    }
+
+    ban(guild, user, reason, actor, message, client) {
+        try {
+            let guildUser = await client.fetchUser(user);
+            await message.guild.ban(guildUser.id);
             let data = {
-                guild_id: message.guild.id,
-                user: guildUser.id,
+                guild_id: guild,
+                user: user,
                 reason: reason,
-                actor: message.author.id
+                actor: actor
             }
-            axios.post('http://localhost:8000/ban/new', data).then(res => {
-                if(res.data.message !== 200) return;
-                sMessage('`[CASE #'+res.data.case+']` Forcebanned **'+guildUser.username+'#'+guildUser.discriminator+'** for '+reason, message);
-            }).catch(err => {
-                wMessage(err, message);
-            });
-        })
-    }).catch(err => {
-        wMessage('User does not exist.', message);
-    });
-
+            let res = Command.prototype.apipost('ban/new', data);
+            Command.prototype.success('`[CASE #'+res.data.case+']` Forcebanned **'+guildUser.username+'#'+guildUser.discriminator+'** for '+reason, message);
+        } catch (err) {
+            Command.prototype.warn(err, message);
+        }  
+    } 
 }
+
+module.exports = Forceban;
