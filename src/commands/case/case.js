@@ -1,74 +1,81 @@
-const meta = require('./case.json');
-const wMessage = require('../../messages/warning');
-const sMessage = require('../../messages/success');
-const axios = require('axios');
+const Command = require('../../structures/Command');
 
-exports.run = (message, client, args) => {
-    // !case [number]
+class Case extends Command {
 
-    if(args[0] === null)
-        return wMessage('Please enter a case ID.', message);
-
-    let x = Number(args[0]);
-    let param = args[1];
-
-    if(['-del', '-d'].indexOf(param) +1) {
-      axios.post('http://localhost:8000/cases/delete', {case:x}).then(res => {
-        sMessage('Successfully deleted case `#'+x+'`!', message);
-      }).catch(err => {
-        wMessage(err, message);
-      })
-      return;
+    constructor(){
+        super({
+            name: 'Case',
+            info: 'Find a specific case with the ID',
+            usage: 'case [id]'
+        });
+        
+        this.deleteCase = this.deleteCase.bind(this);
+        this.getCase = this.getCase.bind(this);
     }
-    
-    if(isNaN(x)) return;
 
-    axios.get('http://localhost:8000/cases/specific', {headers:{case:x}}).then(res => {
-        let data = res.data.data;
-        let type = data.type.charAt(0).toUpperCase() + data.type.slice(1);
-        var color;
-        var avatarURL;
+    async execute(message, client, args) {
+        if(!args[0])
+            return Command.prototype.warn('Please specify a case ID.', message);
 
-        switch(data.type) {
-            case "warn":
-                color = 15322429;
-            break;
-            case "ban":
-                color = 15945263;
-            break;
-            case "unban":
-                color = 6670643;
-            break;
-            case "mute":
-                color = 3375305;
-            break;
-            case "unmute":
-                color = 3594411;
-            break;
-        }
+        let x = Number(args[0]);
+        let param = args[1];
+        if(isNaN(x)) return;
 
-        client.fetchUser(data.user).then(a => {
+        if(['-del', '-d', '-delete'].indexOf(param)+1)
+            return this.deleteCase(x, message);
+
+        await this.getCase(x, message, client);
+
+    }
+
+    async getCase(case_id, message, client) {
+        try {
+            let res = await Command.prototype.apiget('cases/specific', {headers:{case:case_id}});
+            let data = res.data.data;
+            let type = data.type.charAt(0).toUpperCase() + data.type.slice(1);
+            var color;
+            var avatarURL;
+
+            switch(data.type) {
+                case "warn":
+                    color = 15322429;
+                break;
+                case "ban":
+                    color = 15945263;
+                break;
+                case "unban":
+                    color = 6670643;
+                break;
+                case "mute":
+                    color = 3375305;
+                break;
+                case "unmute":
+                    color = 3594411;
+                break;
+            }
+
+            let a = await client.fetchUser(data.user);
             avatarURL = a.avatarURL;
             message.channel.send({
                 "embed": {
-                  "color": color,
-                  "timestamp": `${res.data.time}`,
-                  "author": {
+                    "color": color,
+                    "timestamp": `${res.data.time}`,
+                    "author": {
                     "name": `CASE #${data.id}`
-                  },
-                  "thumbnail": {
+                    },
+                    "thumbnail": {
                     "url": avatarURL
-                  },
-                  "fields": [
+                    },
+                    "fields": [
                     {
-                      "name": "Type",
-                      "value": type,
-                      "inline": true
+                        "name": "Type",
+                        "value": type,
+                        "inline": true
                     },
                     {
-                      "name": "User",
-                      "value": `<@${data.user}>`,
-                      "inline": true
+                        "name": "User",
+                        "value": `<@${data.user}>`,
+                        "inline": true
                     },
                     {
                         "name": "Actor",
@@ -76,17 +83,27 @@ exports.run = (message, client, args) => {
                         "inline": true
                     },
                     {
-                      "name": "Reason",
-                      "value": data.reason
+                        "name": "Reason",
+                        "value": data.reason
                     }
-                  ]
+                    ]
                 }
-            })
-        });
+            });
+        } catch (err) {
+            Command.prototype.warn('Case not found.', message);
+        }
+    }
 
-    }).catch(() => {
-      message.delete();
-      wMessage('Case not found.', message);
-    })
+    async deleteCase(case_id, message) {
+        try {
+            await Command.prototype.apipost('cases/delete', {headers:{case:case_id}});
+            Command.prototype.success('Successfully deleted case `#'+x+'`!', message);
+        } catch (err) {
+            Command.prototype.warn(err, message);
+        }
+
+    }
 
 }
+
+module.exports = Case;
