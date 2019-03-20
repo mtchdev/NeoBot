@@ -1,7 +1,0 @@
-{
-    "meta": {
-        "plugin": "case",
-        "description": "Find a specif case and its info",
-        "usage": "case [id]"
-    }
-}
