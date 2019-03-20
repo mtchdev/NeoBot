@@ -12,7 +12,7 @@ class Unmute extends Command {
         this.unmute = this.unmute.bind(this);
     }
 
-    async execute(client, message, args) {
+    async execute(message, client, args) {
         if(!args[0])
         return wMessage('Please provide a user to unmute.', message);
     
@@ -24,14 +24,14 @@ class Unmute extends Command {
                 return Command.prototype.warn('User is not muted!', message);
             if(user.id == message.author.id)
                 return Command.prototype.warn('You cannot unmute yourself.', message);
-            await this.unmute(message.guild.id, user, message.author.id, res);
+            await this.unmute(message.guild.id, user, message.author.id, res, message);
         } catch (err) {
             Command.prototype.warn(err, message);
             return;
         }
     } 
 
-    async unmute(guild, user, actor, res) {
+    async unmute(guild, user, actor, res, message) {
         let data = {
             guild_id: guild,
             user: user.id,
