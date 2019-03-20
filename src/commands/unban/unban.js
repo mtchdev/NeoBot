@@ -12,7 +12,7 @@ class Unban extends Command {
         this.unban = this.unban.bind(this);
     }
 
-    async execute(client, message, args) {
+    async execute(message, client, args) {
         if(!args[0])
             return await Command.prototype.warn('Please enter a user ID to unban.', message);
 
@@ -20,25 +20,24 @@ class Unban extends Command {
         if(typeof user == 'undefined')
             return await Command.prototype.warn('Please enter a valid user ID.', message);
 
-        await this.unban(message.guild.id, user, message.author.id);
+        await this.unban(message.guild.id, user, message.author.id, message);
     }
 
-    async unban(guild, user, actor) {
-        let guildUser = await message.guild.unban(user);
-        if(!guildUser)
-            return await Command.prototype.warn('User isn\'t banned!', message);
-
-        let data = {
-            guild_id: guild,
-            user: user,
-            actor: actor
-        }
-
+    async unban(guild, user, actor, message) {
         try {
-            let res = Command.prototype.apipost('ban/unban', data);
+            let guildUser = await message.guild.unban(user);
+            if(!guildUser)
+                return await Command.prototype.warn('User isn\'t banned!', message);
+
+            let data = {
+                guild_id: guild,
+                user: user,
+                actor: actor
+            }
+            let res = await Command.prototype.apipost('ban/unban', data);
             Command.prototype.success('`[CASE #'+res.data.case+']` Unbanned '+guildUser.username+'#'+guildUser.discriminator+'.', message);
         } catch (err) {
-            Command.prototype.warn(err, message);
+            Command.prototype.warn('User is not banned.', message);
         }
 
         return false;
