@@ -33,12 +33,13 @@ class Unban extends Command {
             user: user,
             actor: actor
         }
-        axios.post('http://localhost:8000/ban/unban', data).then(res => {
-            if(res.data.message !== 200) return;
+
+        try {
+            let res = axios.post('http://localhost:8000/ban/unban', data);
             Command.prototype.success('`[CASE #'+res.data.case+']` Unbanned '+guildUser.username+'#'+guildUser.discriminator+'.', message);
-        }).catch(err => {
+        } catch (err) {
             Command.prototype.warn(err, message);
-        });
+        }
 
         return false;
     }
