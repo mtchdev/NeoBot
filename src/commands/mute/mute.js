@@ -18,7 +18,7 @@ class Mute extends Command {
         if(['-init', '-i', '-setup'].indexOf(args[0])+1)
             return this.setup(message);
 
-        let res = apiget('http://localhost:8000/config/roles/muted/get', {headers:{guild_id:message.guild.id}});
+        let res = apiget('config/roles/muted/get', {headers:{guild_id:message.guild.id}});
         if(['', null].indexOf(res.data.role)+1)
             return Command.prototype.warn('The mute feature isn\'t set up yet! Run `!mute -init` to begin.', message);
         if(!message.guild.roles.has(res.data.role))
@@ -45,7 +45,7 @@ class Mute extends Command {
         try {
             let role = await message.guild.createRole({name: 'Muted'});
             await role.setPermissions(0);
-            await Command.prototype.apipost('http://localhost:8000/config/roles/muted/set', {guild_id:message.guild.id,role_id:role.id});
+            await Command.prototype.apipost('config/roles/muted/set', {guild_id:message.guild.id,role_id:role.id});
             Command.prototype.success('Successfully initialized mute feature. You will need to adjust the permissions (disable sending messages) for **@'+role.name+'** in each channel.', message);
         } catch (err) {
             Command.prototype.warn(err, message);
@@ -61,7 +61,7 @@ class Mute extends Command {
             reason: reason
         };
 
-        let res = await apipost('http://localhost:8000/mute/new', data);
+        let res = await apipost('mute/new', data);
         await user.addRole(res.data.role);
         Command.prototype.success('`[CASE #'+resp.data.case+']` Muted '+user+' for '+reason, message);
         user.send(`You were muted on ${message.guild.name}: ${reason}`);

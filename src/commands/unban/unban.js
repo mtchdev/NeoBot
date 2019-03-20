@@ -35,7 +35,7 @@ class Unban extends Command {
         }
 
         try {
-            let res = Command.prototype.apipost('http://localhost:8000/ban/unban', data);
+            let res = Command.prototype.apipost('ban/unban', data);
             Command.prototype.success('`[CASE #'+res.data.case+']` Unbanned '+guildUser.username+'#'+guildUser.discriminator+'.', message);
         } catch (err) {
             Command.prototype.warn(err, message);
