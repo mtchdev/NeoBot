@@ -1,68 +1,72 @@
-const meta = require('./mute.json');
-const wMessage = require('../../messages/warning');
-const sMessage = require('../../messages/success');
-const axios = require('axios');
+const Command = require('../../structures/Command');
 
-exports.run = (message, client, args) => {
-
-    if(['-init', '-i'].indexOf(args[0])+1){
-        // RUN SETUP OF MUTE FEATURE
-        message.guild.createRole({
-            name: 'Muted'
-        }).then(role => {
-            role.setPermissions(0).then(() => {
-                axios.post('http://localhost:8000/config/roles/muted/set', {guild_id:message.guild.id,role_id:role.id}).then(res => {
-                    if(res.data.message == 200){
-                        sMessage('Successfully initialized mute feature. You will need to adjust the permissions (disable sending messages) for **@'+role.name+'** in each channel.', message);
-                    };
-                }).catch(err => {
-                    wMessage(err, message);
-                });
-            }).catch(err => {
-                wMessage(err, message);
-            });
-        }).catch(err => {
-            wMessage(err, message);
+class Mute extends Command {
+    
+    constructor(){
+        super({
+            name: 'Mute',
+            info: 'Mute a user',
+            usage: 'mute [user] [reason]'
         });
-        return;
+
+        this.setup = this.setup.bind(this);
+        this.mute = this.mute.bind(this);
     }
 
-    // Check if muted role is set
+    execute(client, message, args) {
 
-    axios.get('http://localhost:8000/config/roles/muted/get', {headers:{guild_id:message.guild.id}}).then(res => {
-        if(['', null].indexOf(res.data.role) +1)
-            return wMessage('The mute feature isn\'t set up yet! Run `!mute -init` to begin.', message);
+        if(['-init', '-i', '-setup'].indexOf(args[0])+1)
+            return this.setup(message);
+
+        let res = apiget('http://localhost:8000/config/roles/muted/get', {headers:{guild_id:message.guild.id}});
+        if(['', null].indexOf(res.data.role)+1)
+            return Command.prototype.warn('The mute feature isn\'t set up yet! Run `!mute -init` to begin.', message);
         if(!message.guild.roles.has(res.data.role))
-            return wMessage('The mute feature isn\'t set up yet! Run `!mute -init` to begin.', message);
+            return Command.prototype.warn('The mute feature isn\'t set up yet! Run `!mute -init` to begin.', message);
 
         if(!args[0])
-            return wMessage('Please @mention a user or paste their ID to mute.', message);
+            return Command.prototype.warn('Please @mention a user to mute.', message);
         if(!args[1])
-            return wMessage('Please provide a reason.', message);
-
+            return Command.prototype.warn('Please specify a reason.', message);
+        
         let user = message.mentions.members.first();
         let reason = args.slice(1).join(' ');
 
         if(user.id == message.author.id)
-            return wMessage('You cannot mute yourself!', message);
+            return Command.prototype.warn('You cannot mute yourself!', message);
         if(user.roles.has(res.data.role))
-            return wMessage('**'+user.user.username+'#'+user.user.discriminator+'** is already muted!', message);
+            return Command.prototype.warn('User is already muted!', message);
 
+        await this.mute(message.guild.id, message.author.id, user, reason);
+
+    }
+
+    setup(message) {
+        try {
+            let role = await message.guild.createRole({name: 'Muted'});
+            await role.setPermissions(0);
+            await Command.prototype.apipost('http://localhost:8000/config/roles/muted/set', {guild_id:message.guild.id,role_id:role.id});
+            Command.prototype.success('Successfully initialized mute feature. You will need to adjust the permissions (disable sending messages) for **@'+role.name+'** in each channel.', message);
+        } catch (err) {
+            Command.prototype.warn(err, message);
+            return;
+        }
+    }
+
+    mute(guild, actor, user, reason) {
         let data = {
-            guild_id: message.guild.id,
-            actor: message.author.id,
+            guild_id: guild,
+            actor: actor,
             user: user.id,
             reason: reason
         };
 
-        axios.post('http://localhost:8000/mute/new', data).then(resp => {
-            if(resp.data.message !== 200) return;
-            user.addRole(res.data.role);
-            sMessage('`[CASE #'+resp.data.case+']` Muted '+user+' for '+reason, message);
-            user.send(`You were muted on ${message.guild.name}: ${reason}`);
-        }).catch(err => {
-            wMessage(err, message);
-        });
-    });
+        let res = await apipost('http://localhost:8000/mute/new', data);
+        await user.addRole(res.data.role);
+        Command.prototype.success('`[CASE #'+resp.data.case+']` Muted '+user+' for '+reason, message);
+        user.send(`You were muted on ${message.guild.name}: ${reason}`);
+    }
 
 }
+
+module.exports = Mute;
