@@ -3,6 +3,7 @@ const Unmute = require('../commands/unmute/Unmute');
 const Unban = require('../commands/unban/Unban');
 const Mute = require('../commands/mute/Mute');
 const Forceban = require('../commands/forceban/forceban');
+const Cases = require('../commands/cases/Cases');
 
 class Router {
     constructor() {
@@ -31,6 +32,10 @@ class Router {
             case "forceban":
                 let forceban = new Forceban;
                 forceban.execute(message, client, args);
+            case "cases":
+                let c = new Cases;
+                c.execute(message, client, args);
+                break;
             default:
                 break;
         }

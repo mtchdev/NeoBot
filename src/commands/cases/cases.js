@@ -1,29 +1,34 @@
-const meta = require('./cases.json');
-const wMessage = require('../../messages/warning');
-const sMessage = require('../../messages/success');
-const axios = require('axios');
+const Command = require('../../structures/Command');
 
-exports.run = (message, client, args) => {
-    // !cases [user]
+class Cases extends Command {
 
-    if(!args[0])
-        return wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
+    constructor() {
+        super({
+            name: 'Cases',
+            info: 'Retreive all the moderation cases for a specified user',
+            usage: 'cases [user|uid]'
+        });
+    }
 
-    let user = args[0].replace(/[<@>]/g,'');
+    async execute(message, client, args) {
+        if(!args[0])
+            return Command.prototype.warn('Please @mention a user or specify their UID to find cases.', message);
 
-    if(typeof user === 'undefined')
-        return wMessage('Please @mention a user on this server or paste their ID to find their cases.', message);
+        let user = args[0].replace(/[<@>]/g,'');
 
-    axios.get('http://localhost:8000/cases/get', {headers:{user:user}}).then(res => {
-        
+        if(typeof user == 'undefined')
+            return Command.prototype.warn('Please @mention a user or specify their UID to find cases.', message);
+
+        let res = await Command.prototype.apiget('cases/get', {headers:{user:user}});
         let arr = res.data.data;
 
-        client.fetchUser(user).then(guildUser => {
+        try {
+            let guildUser = await client.fetchUser(user);
             if ([0, null].indexOf(arr.length) +1){
                 message.channel.send('**'+guildUser.username+'#'+guildUser.discriminator+'** has 0 cases.');
                 return;
             }
-    
+
             let cases;
             arr.length >= 2 ? cases='cases' : cases='case';
             message.channel.send('Found '+arr.length+' '+cases+' for **'+guildUser.username+'#'+guildUser.discriminator+'**:');
@@ -32,13 +37,12 @@ exports.run = (message, client, args) => {
                 let type = element.type.charAt(0).toUpperCase() + element.type.slice(1);
                 message.channel.send(''+element.created_at+' | `[CASE #'+element.id+']` __'+type+'__: '+element.reason+' (**by `<@'+element.actor+'>`**)');
             }
-        }).catch(err => {
-            wMessage('User not found.', message);
-        });
+        } catch (err) {
+            Command.prototype.warn('User not found.', message);
+        }
 
-    }).catch(err => {
-        console.log(err);
-    });
+    }
 
-    // TODO: get cases
 }
+
+module.exports = Cases;
