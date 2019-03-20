@@ -33,10 +33,10 @@ class Warn extends Command {
         if(plainid == message.author.id)
             return Command.prototype.warn('You cannot warn yourself!', message);
 
-        await this.warn(message.guild.id, user, reason, message.author.id);       
+        await this.warn(message.guild.id, user, reason, message.author.id, message);       
     }
 
-    async warn(guild, user, reason, actor){
+    async warn(guild, user, reason, actor, message){
         let data = {
             guild_id: guild,
             user: user.id,
@@ -45,7 +45,7 @@ class Warn extends Command {
         }
 
         try {
-            let res = await Command.prototype.apiget('warn/new', data);
+            let res = await Command.prototype.apipost('warn/new', data);
             if(res.data.message !== 200) return;
             Command.prototype.success('`[CASE #'+res.data.case+']`Warned '+user+' for '+reason, message);
             user.send(`You were warned on ${message.guild.name}: ${reason}`);
