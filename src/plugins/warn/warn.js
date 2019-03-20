@@ -1,49 +1,51 @@
-const meta = require('./warn.json');
-const wMessage = require('../../messages/warning');
-const sMessage = require('../../messages/success');
-const axios = require('axios');
+const Command = require('../../structures/Command');
 
-exports.run = (message, client, args) => {
+class Warn extends Command {
     // !warn [user] [reason]
 
-    if(!args[0])
-        return wMessage('Please provide a user to warn.', message);
-
-    if(!args[1])
-        return wMessage('Please provide a reason.', message);
-
-    let reason = args.slice(1).join(' ');
-    let user = message.mentions.users.first();
-
-    if(typeof user === 'undefined') {
-        wMessage('Please @mention a user on this server to warn.', message);
-        return;
-    }
-    
-    let plainid = args[0].replace(/[<@>]/g,'');
-
-    if(plainid === message.author.id) {
-        wMessage(`You can't warn yourself!`, message);
-        return;
+    constructor(){
+        super();
+        this.warn = this.warn.bind(this);
     }
 
-    let data = {
-        guild_id: message.guild.id,
-        user: user.id,
-        reason: reason,
-        actor: message.author.id
+    async execute(message, client, args){
+        if(!args[0])
+        return Command.prototype.warn('Please provide a user to warn.', message);
+        
+        if(!args[1])
+            return Command.prototype.warn('Please provide a reason.', message);
+
+        let reason = args.slice(1).join(' ');
+        let user = message.mentions.users.first();
+
+        if(typeof user === 'undefined')
+            return Command.prototype.warn('Please @mention a user on this server to warn.', message);
+            
+        let plainid = args[0].replace(/[<@>]/g,'');
+
+        if(plainid == message.author.id)
+            return Command.prototype.warn('You cannot warn yourself!', message);
+
+        await this.warn(message.guild.id, user.id, reason, message.author.id);       
     }
 
-    axios.post('http://localhost:8000/warn/new', data).then(res => {
-        if(res.data.message !== 200) return;
-        sMessage('`[CASE #'+res.data.case+']`Warned '+user+' for '+reason, message);
-        user.send(`You were warned on ${message.guild.name}: ${reason}`);
-    }).catch(err => {
-        wMessage(err, message);
-    });
+    async warn(guild, user, reason, actor){
+        let data = {
+            guild_id: guild,
+            user: user,
+            reason: reason,
+            actor: actor
+        }
+
+        Command.prototype.apiget('warn/new', data).then(res => {
+            if(res.data.message !== 200) return;
+            Command.prototype.success('`[CASE #'+res.data.case+']`Warned '+user+' for '+reason, message);
+            user.send(`You were warned on ${message.guild.name}: ${reason}`);
+        });
+
+        return false;
+    }
 
 }
 
-usage = (meta, message) => {
-    return message.channel.send('Usage: `'+meta.meta.usage+'`');
-}
+module.exports = Warn;
