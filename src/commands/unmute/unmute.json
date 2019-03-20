@@ -1,7 +1,0 @@
-{
-    "meta": {
-        "plugin": "unmute",
-        "description": "Unmute a user",
-        "usage": "unmute [mention|id]"
-    }
-}
