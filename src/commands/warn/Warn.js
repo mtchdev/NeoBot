@@ -1,3 +1,4 @@
+import message from '../../events/message';
 const Command = require('../../structures/Command');
 
 class Warn extends Command {
@@ -44,11 +45,14 @@ class Warn extends Command {
             actor: actor
         }
 
-        Command.prototype.apiget('warn/new', data).then(res => {
+        try {
+            let res = await Command.prototype.apiget('warn/new', data);
             if(res.data.message !== 200) return;
             Command.prototype.success('`[CASE #'+res.data.case+']`Warned '+user+' for '+reason, message);
             user.send(`You were warned on ${message.guild.name}: ${reason}`);
-        });
+        } catch (err) {
+            Command.prototype.warn(err, message);
+        }
 
         return false;
     }
