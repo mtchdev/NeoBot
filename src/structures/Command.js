@@ -5,6 +5,8 @@ class Command {
         this.name = params.name;
         this.info = params.info;
         this.usage = params.usage;
+
+        this.help = this.help.bind(this);
     }
 
     apiget(url, data) {
