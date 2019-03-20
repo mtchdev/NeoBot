@@ -35,7 +35,7 @@ class Command {
     }
 
     help(message) {
-        message.channel.send('Usage: `'+usage+'`');
+        message.channel.send('Usage: `'+this.usage+'`');
     }
 }
 
