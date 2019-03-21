@@ -1,7 +1,7 @@
 const axios = require('axios');
 const API = require('../handlers/api.js');
 
-class Command {
+class Command  {
     constructor(params = {}){
         this.name = params.name;
         this.info = params.info;

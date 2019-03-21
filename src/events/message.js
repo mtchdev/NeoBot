@@ -1,6 +1,7 @@
 const axios = require('axios');
 const Route = require('../handlers/router');
 const API = require('../handlers/api.js');
+const Log = require('../handlers/logger');
 
 module.exports = message => {
     if(!message.guild) return;
