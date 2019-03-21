@@ -5,6 +5,7 @@ const Logger = require('../handlers/logger');
 
 module.exports = message => {
     if(!message.guild) return;
+    if(message.author.bot) return;
 
     var guildID = message.guild.id;
 
