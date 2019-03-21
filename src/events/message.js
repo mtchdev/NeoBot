@@ -8,7 +8,7 @@ module.exports = message => {
 
     var guildID = message.guild.id;
 
-    axios.get(API.api_url+'guild/gest', {headers:{guild_id:guildID}})
+    axios.get(API.api_url+'guild/get', {headers:{guild_id:guildID}})
     .then(res => {
         if(!message.content.startsWith('!')) return;
         let params = message.content.split(' ').slice(1);
