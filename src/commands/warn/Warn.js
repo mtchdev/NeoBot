@@ -46,7 +46,11 @@ class Warn extends Command {
             let res = await Command.prototype.apipost('warn/new', data);
             if(res.data.message !== 200) return;
             Command.prototype.success('`[CASE #'+res.data.case+']`Warned '+user+' for '+reason, message);
-            user.send(`You were warned on ${message.guild.name}: ${reason}`);
+            try {
+                user.send(`You were warned on ${message.guild.name}: ${reason}`);
+            } catch (err) {
+                // cannot send message to user
+            }
         } catch (err) {
             Command.prototype.warn(err, message);
         }
