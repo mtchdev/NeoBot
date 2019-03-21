@@ -34,14 +34,14 @@ class Kick extends Command {
                 reason: reason
             }
             try {
+                try {
+                    await user.send('You were kicked from '+message.guild.name+' for '+reason);
+                } catch (e) {
+                    // could not message user
+                }
                 await user.kick(reason);
             } catch (err) {
                 return Command.prototype.warn('Failed to kick: insufficient permissions.', message);
-            }
-            try {
-                user.send('You were kicked from '+message.guild.name+' for '+reason);
-            } catch (e) {
-                // could not message user
             }
             let res = await Command.prototype.apipost('kick/new', data);
             Command.prototype.success('`[CASE #'+res.data.case+']` Kicked '+user+' for '+reason, message);
