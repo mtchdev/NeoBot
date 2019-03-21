@@ -21,6 +21,9 @@ class Kick extends Command {
         let user = message.mentions.members.first();
         let reason = args.slice(1).join(' ');
 
+        if(!user.kickable)
+            return Command.prototype.warn('That user cannot be kicked!', message);
+
         await this.kick(message, user, reason);
     }
 
