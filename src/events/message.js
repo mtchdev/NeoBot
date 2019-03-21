@@ -1,12 +1,13 @@
 const axios = require('axios');
 const Route = require('../handlers/router');
+const API = require('../handlers/api.js');
 
 module.exports = message => {
     if(!message.guild) return;
 
     var guildID = message.guild.id;
 
-    axios.get('http://localhost:8000/guild/get', {headers:{guild_id:guildID}})
+    axios.get(API.api_url+'guild/get', {headers:{guild_id:guildID}})
     .then(res => {
         if(!message.content.startsWith('!')) return;
         let params = message.content.split(' ').slice(1);

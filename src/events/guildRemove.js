@@ -1,4 +1,5 @@
 const axios = require('axios');
+const API = require('../handlers/api.js');
 
 module.exports = guild => {
 
@@ -6,7 +7,7 @@ module.exports = guild => {
         guild_id: guild.id
     }
 
-    axios.post('http://localhost:8000/guild/remove', data).catch(err => {
+    axios.post(API.api_url+'guild/remove', data).catch(err => {
         console.log(err)
     })
 

@@ -1,4 +1,5 @@
 const axios = require('axios');
+const API = require('../handlers/api.js');
 
 class Command {
     constructor(params = {}){
@@ -10,11 +11,11 @@ class Command {
     }
 
     apiget(url, data) {
-        return axios.get('http://localhost:8000/'+url, data);
+        return axios.get(API.api_url+url, data);
     }
 
     apipost(url, data) {
-        return axios.post('http://localhost:8000/'+url, data);
+        return axios.post(API.api_url+url, data);
     }
 
     warn(msg, message) {
