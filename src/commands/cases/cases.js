@@ -32,11 +32,11 @@ class Cases extends Command {
             let cases;
             arr.length >= 2 ? cases='cases' : cases='case';
             message.channel.send('Found '+arr.length+' '+cases+' for **'+guildUser.username+'#'+guildUser.discriminator+'**:');
-            for (let i = 0; i < arr.length; i++) {
-                const element = arr[i];
-                let type = element.type.charAt(0).toUpperCase() + element.type.slice(1);
-                message.channel.send(''+element.created_at+' | `[CASE #'+element.id+']` __'+type+'__: '+element.reason);
-            }
+            arr.map(a => {
+                console.log(a)
+                let type = a.type.charAt(0).toUpperCase() + a.type.slice(1);
+                message.channel.send(''+a.created_at+' | `[CASE #'+a.id+']` __'+type+'__: '+a.reason);
+            })
         } catch (err) {
             Command.prototype.log('Unable to find user (cases)', 3);
             Command.prototype.warn('User not found.', message);
