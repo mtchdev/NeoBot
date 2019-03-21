@@ -42,7 +42,11 @@ class Unmute extends Command {
             let resp = await Command.prototype.apipost('mute/unmute', data);
             user.removeRole(res.data.role);
             Command.prototype.success('`[CASE #'+resp.data.case+']` Unmuted **'+user.user.username+'#'+user.user.discriminator+'**.', message);
-            user.send(`You were unmuted on ${message.guild.name}.`);
+            try {
+                user.send(`You were unmuted on ${message.guild.name}.`);
+            } catch (err) {
+                Command.prototype.log('Failed to send message to target user', 3);
+            }
         } catch (err) {
             Command.prototype.log('An error occurred while unmuting: '+err, 2);
             Command.prototype.warn(err, message);

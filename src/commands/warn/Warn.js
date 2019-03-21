@@ -47,9 +47,9 @@ class Warn extends Command {
             if(res.data.message !== 200) return;
             Command.prototype.success('`[CASE #'+res.data.case+']`Warned '+user+' for '+reason, message);
             try {
-                user.send(`You were warned on ${message.guild.name}: ${reason}`);
+                await user.send(`You were warned on ${message.guild.name}: ${reason}`);
             } catch (err) {
-                // cannot send message to user
+                Command.prototype.log('Failed to send message to target user', 3);
             }
         } catch (err) {
             Command.prototype.log('An error occurred while warning: '+err, 2);

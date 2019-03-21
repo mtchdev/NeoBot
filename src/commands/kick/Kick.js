@@ -39,8 +39,8 @@ class Kick extends Command {
             try {
                 try {
                     await user.send('You were kicked from '+message.guild.name+' for '+reason);
-                } catch (e) {
-                    // could not message user
+                } catch (err) {
+                    Command.prototype.log('Failed to send message to target user', 3);
                 }
                 await user.kick(reason);
             } catch (err) {

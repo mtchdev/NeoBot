@@ -43,7 +43,7 @@ class Ban extends Command {
                 try {
                     await user.send('You were banned on '+message.guild.name+' for '+reason);
                 } catch (e) {
-                    Command.prototype.log('Unable to message target user', 3);
+                    Command.prototype.log('Failed to send message to target user', 3);
                 }
                 await user.ban(reason);
             } catch (err) {
