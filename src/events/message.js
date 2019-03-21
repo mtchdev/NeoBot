@@ -26,8 +26,7 @@ module.exports = message => {
         new Logger().log('Command received: '+cmd+'. Spawning worker...', 4);
 
         // Spawn
-        let Router = new Route;
-        Router.route(cmd, client, message, args);
+        new Route().route(cmd, client, message, args);
         
         return;
     })
