@@ -40,6 +40,7 @@ class Forceban extends Command {
             let res = await Command.prototype.apipost('ban/new', data);
             Command.prototype.success('`[CASE #'+res.data.case+']` Forcebanned **'+guildUser.username+'#'+guildUser.discriminator+'** for '+reason, message);
         } catch (err) {
+            Command.prototype.log('An error occurred while forcebanning: '+err, 2);
             Command.prototype.warn(err, message);
         }  
     } 

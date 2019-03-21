@@ -44,6 +44,7 @@ class Unmute extends Command {
             Command.prototype.success('`[CASE #'+resp.data.case+']` Unmuted **'+user.user.username+'#'+user.user.discriminator+'**.', message);
             user.send(`You were unmuted on ${message.guild.name}.`);
         } catch (err) {
+            Command.prototype.log('An error occurred while unmuting: '+err, 2);
             Command.prototype.warn(err, message);
             return;
         }

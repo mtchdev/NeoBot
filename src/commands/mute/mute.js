@@ -42,13 +42,16 @@ class Mute extends Command {
     }
 
     async setup(message) {
+        Command.prototype.log('Running mute setup', 4);
         try {
             let role = await message.guild.createRole({name: 'Muted'});
             await role.setPermissions(0);
             await Command.prototype.apipost('config/roles/muted/set', {guild_id:message.guild.id,role_id:role.id});
             Command.prototype.success('Successfully initialized mute feature. You will need to adjust the permissions (disable sending messages) for **@'+role.name+'** in each channel.', message);
+            Command.prototype.log('Mute setup completed without any faults', 4);
         } catch (err) {
-            Command.prototype.warn(err, message);
+            Command.prototype.log('An error occurred while attempting mute setup: '+err, 2);
+            Command.prototype.warn('An error occurred.', message);
             return;
         }
     }

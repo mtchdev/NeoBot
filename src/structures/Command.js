@@ -1,7 +1,8 @@
 const axios = require('axios');
 const API = require('../handlers/api.js');
+const Logger = require('../handlers/logger.js');
 
-class Command  {
+class Command extends Logger {
     constructor(params = {}){
         this.name = params.name;
         this.info = params.info;

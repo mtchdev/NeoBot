@@ -43,15 +43,17 @@ class Ban extends Command {
                 try {
                     await user.send('You were banned on '+message.guild.name+' for '+reason);
                 } catch (e) {
-                    // could not message user
+                    Command.prototype.log('Unable to message target user', 3);
                 }
                 await user.ban(reason);
             } catch (err) {
+                Command.prototype.log('Unable to ban: insufficient permissions', 3);
                 Command.prototype.warn('Failed to ban: insufficient permissions.', message);
             }
             let res = await Command.prototype.apipost('ban/new', data);
             Command.prototype.success('`[CASE #'+res.data.case+']` Banned '+user+' for '+reason, message);
         } catch (err) {
+            Command.prototype.log('An error occurred while banning: '+err, 2);
             Command.prototype.warn(err, message);
         }
     }

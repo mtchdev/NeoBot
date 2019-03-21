@@ -52,6 +52,7 @@ class Warn extends Command {
                 // cannot send message to user
             }
         } catch (err) {
+            Command.prototype.log('An error occurred while warning: '+err, 2);
             Command.prototype.warn(err, message);
         }
 

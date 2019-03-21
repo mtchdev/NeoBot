@@ -38,6 +38,7 @@ class Cases extends Command {
                 message.channel.send(''+element.created_at+' | `[CASE #'+element.id+']` __'+type+'__: '+element.reason);
             }
         } catch (err) {
+            Command.prototype.log('Unable to find user (cases)', 3);
             Command.prototype.warn('User not found.', message);
         }
 
