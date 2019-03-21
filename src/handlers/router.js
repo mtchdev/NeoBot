@@ -54,7 +54,7 @@ class Router {
                 new Logger().log('Loaded worker for kick', 4);
                 break;
             default:
-                new Logger().log('Command not found', 2);
+                new Logger().log('Command \''+cmd+'\' not found. Cancelling worker...', 3);
                 break;
         }
     }
