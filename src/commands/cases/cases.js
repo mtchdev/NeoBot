@@ -35,7 +35,7 @@ class Cases extends Command {
             for (let i = 0; i < arr.length; i++) {
                 const element = arr[i];
                 let type = element.type.charAt(0).toUpperCase() + element.type.slice(1);
-                message.channel.send(''+element.created_at+' | `[CASE #'+element.id+']` __'+type+'__: '+element.reason+' (**by `<@'+element.actor+'>`**)');
+                message.channel.send(''+element.created_at+' | `[CASE #'+element.id+']` __'+type+'__: '+element.reason);
             }
         } catch (err) {
             Command.prototype.warn('User not found.', message);

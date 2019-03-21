@@ -1,4 +1,5 @@
 const axios = require('axios');
+const API = require('../handlers/api.js');
 
 module.exports = guild => {
 
@@ -7,7 +8,7 @@ module.exports = guild => {
         owner_id: guild.ownerID
     }
 
-    axios.post('http://localhost:8000/guild/add', data).catch(err => {
+    axios.post(API.api_url+'guild/add', data).catch(err => {
         console.log(err)
     });
 
