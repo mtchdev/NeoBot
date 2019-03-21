@@ -10,7 +10,7 @@ class Logger {
 
         let lvl = await this.format(level);
         let levelString = lvl.name.toUpperCase();
-        console.log(lvl.color(levelString)+': '+message);
+        console.log(lvl.color(levelString)+' '+message);
 
     }
 
@@ -27,10 +27,10 @@ class Logger {
             lvl = { name: 'warn', color: chalk.black.bgYellow }
                 break;
             case 4:
-            lvl = { name: 'info', color: chalk.black.bgGreen }
+            lvl = { name: 'info', color: chalk.black.bgCyan }
                 break;
             case 5:
-            lvl = { name: 'api', color: chalk.black.bgCyan }
+            lvl = { name: 'api', color: chalk.black.bgGreen }
                 break;
         }
 
