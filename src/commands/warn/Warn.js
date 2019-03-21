@@ -23,7 +23,7 @@ class Warn extends Command {
             return Command.prototype.warn('Please provide a reason.', message);
 
         let reason = args.slice(1).join(' ');
-        let user = message.mentions.users.first();
+        let user = message.mentions.members.first();
 
         if(typeof user == 'undefined')
             return Command.prototype.warn('Please @mention a user on this server to warn.', message);
