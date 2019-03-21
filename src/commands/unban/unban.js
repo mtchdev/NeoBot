@@ -37,7 +37,7 @@ class Unban extends Command {
             let res = await Command.prototype.apipost('ban/unban', data);
             Command.prototype.success('`[CASE #'+res.data.case+']` Unbanned '+guildUser.username+'#'+guildUser.discriminator+'.', message);
         } catch (err) {
-            Command.prototype.warn('User is not banned.', message);
+            Command.prototype.warn('User isn\'t banned!', message);
         }
 
         return false;
