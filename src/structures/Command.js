@@ -4,6 +4,7 @@ const Logger = require('../handlers/logger.js');
 
 class Command extends Logger {
     constructor(params = {}){
+        super();
         this.name = params.name;
         this.info = params.info;
         this.usage = params.usage;
@@ -12,10 +13,12 @@ class Command extends Logger {
     }
 
     apiget(url, data) {
+        Logger.prototype.log('API endpoint requested: (GET) '+url, 5);
         return axios.get(API.api_url+url, data);
     }
 
     apipost(url, data) {
+        Logger.prototype.log('API endpoint post: (POST) '+url, 5);
         return axios.post(API.api_url+url, data);
     }
 

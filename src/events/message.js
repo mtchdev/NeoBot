@@ -10,6 +10,7 @@ module.exports = message => {
 
     axios.get(API.api_url+'guild/get', {headers:{guild_id:guildID}})
     .then(res => {
+        new Logger().log('API endpoint requested: (GET) '+'guild/get', 5);
         if(!message.content.startsWith('!')) return;
         let params = message.content.split(' ').slice(1);
         const client = message.client;
@@ -30,7 +31,7 @@ module.exports = message => {
         return;
     })
     .catch(err => {
-        new Logger().log('Unable to connect to API: '+err, 1);
+        new Logger().log('General error: '+err, 1);
         return;
     });
 }
