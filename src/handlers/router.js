@@ -59,6 +59,14 @@ class Router {
                 new Logger().log('Loaded worker for purge', 4);
                 break;
             default:
+                message.delete();
+                message.channel.send({embed: {
+                    color: 15158332,
+                    title: "Error",
+                    description: '⚠ Command `'+cmd+'` doesn\'t exist!'
+                }}).then(msg =>{
+                    msg.delete(3500)
+                });
                 new Logger().log('Command \''+cmd+'\' not found. Cancelling worker...', 3);
                 break;
         }
