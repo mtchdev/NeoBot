@@ -29,3 +29,4 @@ Route::post('/config/roles/muted/set', 'RolesController@setMuted');
 Route::post('/mute/new', 'MuteController@new');
 Route::post('/mute/unmute', 'MuteController@unmute');
 Route::get('/mute/get', 'MuteController@get');
+Route::post('/kick/new', 'KickController@new');

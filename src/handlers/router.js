@@ -6,6 +6,7 @@ const Forceban = require('../commands/forceban/forceban');
 const Cases = require('../commands/cases/Cases');
 const Case = require('../commands/case/Case');
 const Ban = require('../commands/ban/Ban');
+const Kick = require('../commands/kick/Kick');
 
 class Router {
     constructor() {
@@ -36,6 +37,9 @@ class Router {
                 break;
             case "ban":
                 new Ban().execute(message, client, args);
+                break;
+            case "kick":
+                new Kick().execute(message, client, args);
                 break;
             default:
                 break;
