@@ -28,9 +28,7 @@ class Warn extends Command {
         if(typeof user == 'undefined')
             return Command.prototype.warn('Please @mention a user on this server to warn.', message);
             
-        let plainid = args[0].replace(/[<@>]/g,'');
-
-        if(plainid == message.author.id)
+        if(user.id == message.author.id)
             return Command.prototype.warn('You cannot warn yourself!', message);
 
         await this.warn(message.guild.id, user, reason, message.author.id, message);       
