@@ -7,6 +7,7 @@ const Cases = require('../commands/cases/Cases');
 const Case = require('../commands/case/Case');
 const Ban = require('../commands/ban/Ban');
 const Kick = require('../commands/kick/Kick');
+const Purge = require('../commands/purge/Purge');
 
 const Logger = require('./logger');
 
@@ -52,6 +53,10 @@ class Router {
             case "kick":
                 new Kick().execute(message, client, args);
                 new Logger().log('Loaded worker for kick', 4);
+                break;
+            case "purge":
+                new Purge().execute(message, client, args);
+                new Logger().log('Loaded worker for purge', 4);
                 break;
             default:
                 new Logger().log('Command \''+cmd+'\' not found. Cancelling worker...', 3);
