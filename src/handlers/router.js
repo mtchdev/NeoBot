@@ -15,35 +15,27 @@ class Router {
     route(cmd, client, message, args) {
         switch (cmd) {
             case "warn":
-                let warn = new Warn;
-                warn.execute(message, client, args);
+                new Warn().execute(message, client, args);
                 break;
             case "unmute":
-                let unmute = new Unmute;
-                unmute.execute(message, client, args);
+                new Unmute().execute(message, client, args);
                 break;
             case "unban":
-                let unban = new Unban;
-                unban.execute(message, client, args);
+                new Unban().execute(message, client, args);
                 break;
             case "mute":
-                let mute = new Mute;
-                mute.execute(message, client, args);
+                new Mute().execute(message, client, args);
                 break;
             case "forceban":
-                let forceban = new Forceban;
-                forceban.execute(message, client, args);
+                new Forceban().execute(message, client, args);
             case "cases":
-                let c = new Cases;
-                c.execute(message, client, args);
+                new Cases().execute(message, client, args);
                 break;
             case "case":
-                let cs = new Case;
-                cs.execute(message, client, args);
+                new Case().execute(message, client, args);
                 break;
             case "ban":
-                let ban = new Ban;
-                ban.execute(message, client, args);
+                new Ban().execute(message, client, args);
                 break;
             default:
                 break;
