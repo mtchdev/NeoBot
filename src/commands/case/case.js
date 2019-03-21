@@ -96,8 +96,8 @@ class Case extends Command {
 
     async deleteCase(case_id, message) {
         try {
-            await Command.prototype.apipost('cases/delete', {headers:{case:case_id}});
-            Command.prototype.success('Successfully deleted case `#'+x+'`!', message);
+            await Command.prototype.apipost('cases/delete', {case:case_id});
+            Command.prototype.success('Successfully deleted case `#'+case_id+'`!', message);
         } catch (err) {
             Command.prototype.warn(err, message);
         }
