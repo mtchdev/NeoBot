@@ -24,7 +24,7 @@ class Purge extends Command {
             const fetched = await message.channel.fetchMessages({limit: deleteCount});
             try {
                 await message.channel.bulkDelete(fetched)
-                Command.prototype.success('Successfully purged **'+deleteCount+' lines**.', message);
+                Command.prototype.success('Successfully purged **'+deleteCount+' messages**.', message);
             } catch (err) {
                 Command.prototype.log('Failed to bulk delete: '+err, 2);
                 Command.prototype.warn('An error occurred.', message);
