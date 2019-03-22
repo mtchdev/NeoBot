@@ -41,8 +41,12 @@ class Command extends Logger {
         }});
     }
 
-    help(message) {
-        message.channel.send('Usage: `'+this.usage+'`');
+    help(msg, message) {
+        message.channel.send({embed: {
+            color: 20735,
+            title: "Help",
+            description: 'ℹ️ Usage: `'+msg+'`'
+        }});
     }
 }
 
