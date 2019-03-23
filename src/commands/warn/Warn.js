@@ -17,7 +17,7 @@ class Warn extends Command {
         return Command.prototype.warn('Please provide a user to warn.', message);
 
         if(['help', 'h'].indexOf(args[0])+1)
-            return message.channel.send(super.cmdhelp);
+            return super.cmdhelp(message);
         
         if(!args[1])
             return Command.prototype.warn('Please provide a reason.', message);

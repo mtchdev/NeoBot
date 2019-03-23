@@ -40,10 +40,12 @@ class Command extends Logger {
         }});
     }
 
-    get cmdhelp() {
+    async cmdhelp(message) {
+        let res = await axios.get(API.api_url+'guild/get', {headers:{guild_id:message.guild.id}});
+        let prefix = res.data.prefix;
         let embed = {
             "embed": {
-              "description": "Find information for any command using `[command] help`!",
+              "description": "Find information for any command using `"+prefix+"[command] help`!",
               "color": 6387150,
               "author": {
                 "name": "Neo Command Help",
@@ -59,7 +61,7 @@ class Command extends Logger {
                 },
                 {
                   "name": "Usage",
-                  "value": '`'+this.usage+'`',
+                  "value": '`'+prefix+this.usage+'`',
                   "inline": true
                 },
                 {
@@ -70,7 +72,7 @@ class Command extends Logger {
               ]
             }
           }
-        return embed;
+        message.channel.send(embed);
     }
 }
 
