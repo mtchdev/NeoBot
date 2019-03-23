@@ -40,8 +40,37 @@ class Command extends Logger {
         }});
     }
 
-    get cmdusage() {
-        return this.usage;
+    get cmdhelp() {
+        let embed = {
+            "embed": {
+              "description": "Find information for any command using `[command] help`!",
+              "color": 6387150,
+              "author": {
+                "name": "Neo Command Help",
+              },
+              "fields": [
+                {
+                  "name": "Name",
+                  "value": this.name
+                },
+                {
+                  "name": "Description",
+                  "value": this.info
+                },
+                {
+                  "name": "Usage",
+                  "value": '`'+this.usage+'`',
+                  "inline": true
+                },
+                {
+                  "name": "Category",
+                  "value": "Moderation",
+                  "inline": true
+                }
+              ]
+            }
+          }
+        return embed;
     }
 }
 
