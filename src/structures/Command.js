@@ -8,6 +8,7 @@ class Command extends Logger {
         this.name = params.name || '';
         this.info = params.info || '';
         this.usage = params.usage || '';
+        this.category = params.category || 'All';
         
     }
 
@@ -66,7 +67,7 @@ class Command extends Logger {
                 },
                 {
                   "name": "Category",
-                  "value": "Moderation",
+                  "value": this.category,
                   "inline": true
                 }
               ]
