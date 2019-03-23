@@ -5,7 +5,8 @@ class Purge extends Command {
         super({
             name: 'Purge',
             info: 'Purge some lines of text',
-            usage: 'Purge [no. of lines] [reason]'
+            usage: 'Purge [no. of lines] [reason]',
+            category: 'Moderation'
         });
     }
 

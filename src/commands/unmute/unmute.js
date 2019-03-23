@@ -6,7 +6,8 @@ class Unmute extends Command {
         super({
             name: 'Unmute',
             info: 'Unmute a user',
-            usage: 'unmute [name]'
+            usage: 'unmute [name]',
+            category: 'Moderation'
         });
 
         this.unmute = this.unmute.bind(this);

@@ -6,7 +6,8 @@ class Mute extends Command {
         super({
             name: 'Mute',
             info: 'Mute a user',
-            usage: 'mute [user] [reason]'
+            usage: 'mute [user] [reason]',
+            category: 'Moderation'
         });
 
         this.setup = this.setup.bind(this);

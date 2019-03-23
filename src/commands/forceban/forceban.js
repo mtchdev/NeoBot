@@ -6,7 +6,8 @@ class Forceban extends Command {
         super({
             name: 'Forceban',
             info: 'Forcefully bans a user if they are inaccessable on the server.',
-            usage: 'forceban [id] [reason]'
+            usage: 'forceban [id] [reason]',
+            category: 'Moderation'
         });
 
         this.ban = this.ban.bind(this);

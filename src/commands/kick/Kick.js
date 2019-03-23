@@ -6,7 +6,8 @@ class Kick extends Command {
         super({
             name: 'Kick',
             info: 'Kick a user from the server',
-            usage: 'kick [user] [reason]'
+            usage: 'kick [user] [reason]',
+            category: 'Moderation'
         });
 
         this.kick = this.kick.bind(this);

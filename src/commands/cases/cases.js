@@ -6,7 +6,8 @@ class Cases extends Command {
         super({
             name: 'Cases',
             info: 'Retreive all the moderation cases for a specified user',
-            usage: 'cases [user|uid]'
+            usage: 'cases [user|uid]',
+            category: 'Moderation'
         });
     }
 

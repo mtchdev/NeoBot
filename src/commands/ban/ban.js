@@ -6,7 +6,8 @@ class Ban extends Command {
         super({
             name: 'Ban',
             info: 'Ban a user',
-            usage: 'Ban [user] [reason]'
+            usage: 'Ban [user] [reason]',
+            category: 'Moderation'
         });
 
         this.ban = this.ban.bind(this);

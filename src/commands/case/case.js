@@ -6,7 +6,8 @@ class Case extends Command {
         super({
             name: 'Case',
             info: 'Find a specific case with the ID',
-            usage: 'case [id]'
+            usage: 'case [id]',
+            category: 'Moderation'
         });
         
         this.deleteCase = this.deleteCase.bind(this);

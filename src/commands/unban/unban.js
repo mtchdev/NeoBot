@@ -6,7 +6,8 @@ class Unban extends Command {
         super({
             name: 'Unban',
             info: 'Unban a user',
-            usage: 'unban [user]'
+            usage: 'unban [user]',
+            category: 'Moderation'
         });
         
         this.unban = this.unban.bind(this);
