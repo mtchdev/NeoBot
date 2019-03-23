@@ -5,11 +5,10 @@ const Logger = require('../handlers/logger.js');
 class Command extends Logger {
     constructor(params = {}){
         super();
-        this.name = params.name;
-        this.info = params.info;
-        this.usage = params.usage;
-
-        this.help = this.help.bind(this);
+        this.name = params.name || '';
+        this.info = params.info || '';
+        this.usage = params.usage || '';
+        
     }
 
     apiget(url, data) {
@@ -41,12 +40,8 @@ class Command extends Logger {
         }});
     }
 
-    help(msg, message) {
-        message.channel.send({embed: {
-            color: 20735,
-            title: "Help",
-            description: 'ℹ️ Usage: `'+msg+'`'
-        }});
+    get cmdusage() {
+        return this.usage;
     }
 }
 
