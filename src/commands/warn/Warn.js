@@ -7,7 +7,7 @@ class Warn extends Command {
         super({
             name: 'Warn',
             info: 'Warn a user on the server.',
-            usage: 'warn [user] [name]'
+            usage: 'warn [user] [reason]'
         });
         this.warn = this.warn.bind(this);
     }
