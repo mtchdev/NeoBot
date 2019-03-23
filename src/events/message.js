@@ -12,7 +12,7 @@ module.exports = message => {
     axios.get(API.api_url+'guild/get', {headers:{guild_id:guildID}})
     .then(res => {
         new Logger().log('API endpoint requested: (GET) '+'guild/get', 5);
-        if(!message.content.startsWith('!')) return;
+        if(!message.content.startsWith(res.data.prefix)) return;
         let params = message.content.split(' ').slice(1);
         const client = message.client;
         const args = message.content.split(' ');
