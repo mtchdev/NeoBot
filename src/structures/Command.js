@@ -46,7 +46,7 @@ class Command extends Logger {
         let prefix = res.data.prefix;
         let embed = {
             "embed": {
-              "description": "Find information for any command using `"+prefix+"[command] help`!",
+              "description": "Find information for any command using `"+prefix+"[command] help`",
               "color": 6387150,
               "author": {
                 "name": "Neo Command Help",
