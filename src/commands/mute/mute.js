@@ -16,6 +16,9 @@ class Mute extends Command {
 
     async execute(message, client, args) {
 
+        if(['help', 'h'].indexOf(args[0])+1)
+            return super.cmdhelp(message);
+
         if(['-init', '-i', '-setup'].indexOf(args[0])+1)
             return this.setup(message);
 

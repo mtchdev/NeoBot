@@ -14,6 +14,10 @@ class Unban extends Command {
     }
 
     async execute(message, client, args) {
+
+        if(['help', 'h'].indexOf(args[0])+1)
+            return super.cmdhelp(message);
+        
         if(!args[0])
             return await Command.prototype.warn('Please enter a user ID to unban.', message);
 

@@ -15,6 +15,9 @@ class Forceban extends Command {
 
     async execute(message, client, args) {
 
+        if(['help', 'h'].indexOf(args[0])+1)
+            return super.cmdhelp(message);
+
         if(!args[0])
             return Command.prototype.warn('Please specify a user ID to ban.', message);
         if(!args[1])

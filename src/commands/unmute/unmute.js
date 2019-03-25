@@ -14,6 +14,10 @@ class Unmute extends Command {
     }
 
     async execute(message, client, args) {
+
+        if(['help', 'h'].indexOf(args[0])+1)
+            return super.cmdhelp(message);
+        
         if(!args[0])
         return wMessage('Please provide a user to unmute.', message);
     

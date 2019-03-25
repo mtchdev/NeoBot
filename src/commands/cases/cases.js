@@ -12,6 +12,10 @@ class Cases extends Command {
     }
 
     async execute(message, client, args) {
+
+        if(['help', 'h'].indexOf(args[0])+1)
+            return super.cmdhelp(message);
+        
         if(!args[0])
             return Command.prototype.warn('Please @mention a user or specify their UID to find cases.', message);
 
