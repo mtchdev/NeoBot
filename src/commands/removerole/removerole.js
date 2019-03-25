@@ -20,6 +20,9 @@ class RemoveRole extends Command {
         if(['help', 'h'].indexOf(args[0])+1)
             return super.cmdhelp(message);
 
+        if(!user.roles.has(role.id))
+            return super.warn('User does not have the '+role+' role.');
+
         if(typeof user == 'undefined')
             return super.warn('Please @mention a user on this server to remove the role from.', message);
 
