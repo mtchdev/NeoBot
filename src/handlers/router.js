@@ -9,6 +9,7 @@ const Ban = require('../commands/ban/Ban');
 const Kick = require('../commands/kick/Kick');
 const Purge = require('../commands/purge/Purge');
 const AddRole = require('../commands/addrole/Addrole');
+const RemoveRole = require('../commands/removerole/removerole');
 
 const Logger = require('./logger');
 
@@ -62,6 +63,10 @@ class Router {
             case "addrole":
                 new AddRole().execute(message, client, args);
                 new Logger().log('Loaded worker for addrole', 4);
+                break;
+            case "removerole":
+                new RemoveRole().execute(message, client, args);
+                new Logger().log('Loaded worker for removerole', 4);
                 break;
             default:
                 message.delete();
