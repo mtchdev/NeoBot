@@ -17,21 +17,11 @@ class Logger {
     async format(level) {
         var lvl = {};
         switch(level) {
-            case 1:
-            lvl = { name: 'fatal', color: chalk.red.bgBlack }
-                break;
-            case 2:
-            lvl = { name: 'error', color: chalk.black.bgRed }
-                break;
-            case 3:
-            lvl = { name: 'warn', color: chalk.black.bgYellow }
-                break;
-            case 4:
-            lvl = { name: 'info', color: chalk.black.bgCyan }
-                break;
-            case 5:
-            lvl = { name: 'api', color: chalk.black.bgGreen }
-                break;
+            case 1: lvl = { name: 'fatal', color: chalk.red.bgBlack }
+            case 2: lvl = { name: 'error', color: chalk.black.bgRed }
+            case 3: lvl = { name: 'warn', color: chalk.black.bgYellow }
+            case 4: lvl = { name: 'info', color: chalk.black.bgCyan }
+            case 5: lvl = { name: 'api', color: chalk.black.bgGreen }
         }
 
         return lvl;
