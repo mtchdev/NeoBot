@@ -4,7 +4,7 @@ class AddRole extends Command {
     
     constructor(){
         super({
-            name: 'AddRoles',
+            name: 'Add role',
             info: 'Add a role to a user',
             usage: 'addRole [user] [role]'
         });
