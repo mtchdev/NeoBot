@@ -5,8 +5,8 @@ class Unban extends Command {
     constructor(){
         super({
             name: 'Unban',
-            info: 'Unban a user',
-            usage: 'unban [user]',
+            info: 'Unban a user from the guild. The user argument takes a user ID',
+            usage: 'unban [uid]',
             category: 'Moderation'
         });
         

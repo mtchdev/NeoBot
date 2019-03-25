@@ -6,7 +6,7 @@ class Unmute extends Command {
         super({
             name: 'Unmute',
             info: 'Unmute a user',
-            usage: 'unmute [name]',
+            usage: 'unmute [@user]',
             category: 'Moderation'
         });
 

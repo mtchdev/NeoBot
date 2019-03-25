@@ -5,7 +5,7 @@ class Forceban extends Command {
     constructor() {
         super({
             name: 'Forceban',
-            info: 'Forcefully bans a user if they are inaccessable on the server.',
+            info: 'Forcefully bans a user if they are inaccessible on the server',
             usage: 'forceban [id] [reason]',
             category: 'Moderation'
         });

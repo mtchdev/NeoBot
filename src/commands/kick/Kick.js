@@ -5,8 +5,8 @@ class Kick extends Command {
     constructor(){
         super({
             name: 'Kick',
-            info: 'Kick a user from the server',
-            usage: 'kick [user] [reason]',
+            info: 'Kick a user from the guild',
+            usage: 'kick [@user] [reason]',
             category: 'Moderation'
         });
 

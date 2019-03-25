@@ -5,8 +5,8 @@ class Ban extends Command {
     constructor() {
         super({
             name: 'Ban',
-            info: 'Ban a user',
-            usage: 'ban [user] [reason]',
+            info: 'Ban a user from the guild',
+            usage: 'ban [@user] [reason]',
             category: 'Moderation'
         });
 

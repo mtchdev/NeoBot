@@ -4,8 +4,8 @@ class Purge extends Command {
     constructor() {
         super({
             name: 'Purge',
-            info: 'Purge some lines of text',
-            usage: 'Purge [no. of lines] [reason]',
+            info: 'Purge a specific amount of messages. Maximum 99 messages',
+            usage: 'purge [#]',
             category: 'Moderation'
         });
     }

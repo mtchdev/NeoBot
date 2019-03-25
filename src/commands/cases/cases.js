@@ -5,8 +5,8 @@ class Cases extends Command {
     constructor() {
         super({
             name: 'Cases',
-            info: 'Retreive all the moderation cases for a specified user',
-            usage: 'cases [user|uid]',
+            info: 'Retrieve all the moderation cases for a specified user',
+            usage: 'cases [@user|id]',
             category: 'Moderation'
         });
     }

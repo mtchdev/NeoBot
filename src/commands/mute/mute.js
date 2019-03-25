@@ -5,8 +5,8 @@ class Mute extends Command {
     constructor(){
         super({
             name: 'Mute',
-            info: 'Mute a user',
-            usage: 'mute [user] [reason]',
+            info: 'Mute a user. A role will be applied to the user which prevents them from using text and voice channels',
+            usage: 'mute [@user] [reason]',
             category: 'Moderation'
         });
 

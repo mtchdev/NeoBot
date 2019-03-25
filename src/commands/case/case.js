@@ -5,8 +5,8 @@ class Case extends Command {
     constructor(){
         super({
             name: 'Case',
-            info: 'Find a specific case with the ID',
-            usage: 'case [id]',
+            info: 'Find a specific case with for a specific user with their user ID',
+            usage: 'case [uid]',
             category: 'Moderation'
         });
         

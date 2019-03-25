@@ -6,8 +6,8 @@ class Warn extends Command {
     constructor(){
         super({
             name: 'Warn',
-            info: 'Warn a user on the server.',
-            usage: 'warn [user] [reason]',
+            info: 'Warn a user. The warning will be anonymously sent via DM to the target user',
+            usage: 'warn [@user] [reason]',
             category: 'Moderation'
         });
         this.warn = this.warn.bind(this);
