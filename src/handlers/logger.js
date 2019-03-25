@@ -27,10 +27,6 @@ class Logger {
         return lvl;
     }
 
-    async write(message) {
-
-    }
-
 }
 
 module.exports = Logger;
