@@ -8,6 +8,7 @@ const Case = require('../commands/case/Case');
 const Ban = require('../commands/ban/Ban');
 const Kick = require('../commands/kick/Kick');
 const Purge = require('../commands/purge/Purge');
+const AddRole = require('../commands/addrole/Addrole');
 
 const Logger = require('./logger');
 
@@ -57,6 +58,10 @@ class Router {
             case "purge":
                 new Purge().execute(message, client, args);
                 new Logger().log('Loaded worker for purge', 4);
+                break;
+            case "addrole":
+                new AddRole().execute(message, client, args);
+                new Logger().log('Loaded worker for addrole', 4);
                 break;
             default:
                 message.delete();
