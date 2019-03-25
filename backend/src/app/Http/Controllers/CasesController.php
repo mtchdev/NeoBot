@@ -26,4 +26,12 @@ class CasesController extends Controller
             return response()->json(['message'=>200]);
         }
     }
+
+    function edit(Request $request) {
+        $case = Cases::where('id', $request->input('case_id'))->first();
+        $case->reason = $request->input('reason');
+        if($case->save()) {
+            return response()->json(['message'=>200]);
+        }
+    }
 }
