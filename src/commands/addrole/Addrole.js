@@ -23,6 +23,9 @@ class AddRole extends Command {
         if(typeof user == 'undefined')
             return super.warn('Please @mention a user on this server to add the role to.', message);
 
+        if(user.roles.has(role.id))
+            return super.warn('user has role LOL', message);
+
         await this.addrole(message, role, user);
     }
 
