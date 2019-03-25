@@ -58,7 +58,7 @@ class Command extends Logger {
                 },
                 {
                   "name": "Description",
-                  "value": this.info
+                  "value": this.info+'.'
                 },
                 {
                   "name": "Usage",
