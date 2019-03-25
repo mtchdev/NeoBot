@@ -6,7 +6,7 @@ class Case extends Command {
         super({
             name: 'Case',
             info: 'Find a specific case with for a specific user with their user ID',
-            usage: 'case [uid]',
+            usage: 'case [id] | case [id] -del | case [id] edit [reason]',
             category: 'Moderation'
         });
         
