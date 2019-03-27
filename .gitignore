@@ -67,3 +67,8 @@ typings/
 # next.js build output
 .next
 src/handlers/api.js
+src/settings.ts
+settings.ts
+settings.*
+src/settings.*
+src/settings.ts
