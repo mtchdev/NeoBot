@@ -1,5 +1,6 @@
 import guildCreate from './guildCreate';
 import Message from './message';
+import guildMemberAdd from './guildMemberAdd';
 
 class EventHandler {
     public client: any;
@@ -15,6 +16,9 @@ class EventHandler {
         })
         this.client.on('message', (client: any) => {
             new Message(client);
+        })
+        this.client.on('guildMemberAdd', (client: any) => {
+            new guildMemberAdd(client);
         })
         return false;
     }

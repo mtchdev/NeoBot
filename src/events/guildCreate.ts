@@ -1,5 +1,6 @@
 import axios from 'axios';
 import api_url from '../handlers/api';
+import Logger from '../handlers/logger';
 
 class guildCreate {
     public guild_id: string = '0';
@@ -12,14 +13,16 @@ class guildCreate {
         this.handle();
     }
 
-    handle() {
+    async handle() {
         this.data = {
             owner_id: this.owner_id,
             guild_id: this.guild_id
         }
-        axios.post(api_url+'guild/add', this.data).catch(err => {
-            console.log(err)
-        });
+        try {
+            await axios.post(api_url+'guild/add', this.data);
+        } catch (e) {
+            new Logger().log('Unable to create guild data for '+this.guild_id, 2);
+        }
     }
 }
 
