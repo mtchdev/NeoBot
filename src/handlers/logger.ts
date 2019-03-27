@@ -1,12 +1,11 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 class Logger {
 
     constructor(){
-        this.format = this.format.bind(this);
     }
 
-    async log(message, level) {
+    async log(message: any, level: number) {
 
         let lvl = await this.format(level);
         let levelString = lvl.name.toUpperCase();
@@ -14,8 +13,11 @@ class Logger {
 
     }
 
-    async format(level) {
-        var lvl = {};
+    async format(level: number) {
+        var lvl = {
+            name: '',
+            color: (temp: any) => {return ''}
+        };
         switch(level) {
             case 1:
             lvl = { name: 'fatal', color: chalk.red.bgBlack }
@@ -37,10 +39,6 @@ class Logger {
         return lvl;
     }
 
-    async write(message) {
-
-    }
-
 }
 
-module.exports = Logger;
+export default Logger;

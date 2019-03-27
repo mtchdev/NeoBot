@@ -1,9 +1,15 @@
-const axios = require('axios');
-const API = require('../handlers/api.js');
-const Logger = require('../handlers/logger.js');
+import axios from 'axios';
+import api_url from '../handlers/api';
+import Logger from '../handlers/logger';
 
 class Command extends Logger {
-    constructor(params = {}){
+
+    name: string;
+    info: string;
+    usage: string;
+    category: string;
+
+    constructor(params: any){
         super();
         this.name = params.name || '';
         this.info = params.info || '';
@@ -12,28 +18,28 @@ class Command extends Logger {
         
     }
 
-    apiget(url, data) {
+    apiget(url: string, data: any) {
         Logger.prototype.log('API endpoint requested: (GET) '+url, 5);
-        return axios.get(API.api_url+url, data);
+        return axios.get(api_url+url, data);
     }
 
-    apipost(url, data) {
+    apipost(url: string, data: any) {
         Logger.prototype.log('API endpoint post: (POST) '+url, 5);
-        return axios.post(API.api_url+url, data);
+        return axios.post(api_url+url, data);
     }
 
-    warn(msg, message) {
+    async warn(msg: string, message: any) {
         message.delete();
-        message.channel.send({embed: {
+        let mesg = await message.channel.send({embed: {
             color: 15158332,
             title: "Error",
             description: `⚠ ${msg}`
-        }}).then(msg =>{
-            msg.delete(3500)
-        });
+        }});
+
+        mesg.delete(3500);
     }
 
-    success(msg, message){
+    success(msg: string, message: any){
         message.channel.send({embed: {
             color: 3066993,
             title: "Success",
@@ -41,8 +47,8 @@ class Command extends Logger {
         }});
     }
 
-    async cmdhelp(message) {
-        let res = await axios.get(API.api_url+'guild/get', {headers:{guild_id:message.guild.id}});
+    async cmdhelp(message: any) {
+        let res = await axios.get(api_url+'guild/get', {headers:{guild_id:message.guild.id}});
         let prefix = res.data.prefix;
         let embed = {
             "embed": {
@@ -77,4 +83,4 @@ class Command extends Logger {
     }
 }
 
-module.exports = Command;
+export default Command;
