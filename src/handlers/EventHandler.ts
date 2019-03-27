@@ -1,6 +1,6 @@
-import guildCreate from './guildCreate';
-import Message from './message';
-import guildMemberAdd from './guildMemberAdd';
+import guildCreate from '../events/guildCreate';
+import Message from '../events/message';
+import guildMemberAdd from '../events/guildMemberAdd';
 
 class EventHandler {
     public client: any;
