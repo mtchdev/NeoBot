@@ -1,6 +1,6 @@
 import axios from 'axios';
-import Router from '../handlers/router';
-import api_url from '../handlers/api';
+import Router from '../handlers/Router';
+import api_url from '../handlers/API';
 
 class Message {
     public message: any;

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import api_url from '../handlers/api';
-import Logger from '../handlers/logger';
+import api_url from '../handlers/API';
+import Logger from '../handlers/Logger';
 
 class guildDelete {
     public guildID: string;

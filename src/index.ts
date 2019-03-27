@@ -2,7 +2,7 @@ import * as Discord from 'discord.js';
 const client = new Discord.Client();
 import {token} from './settings';
 import EventHandler from './handlers/EventHandler';
-import Logger from './handlers/logger';
+import Logger from './handlers/Logger';
 
 new EventHandler(client);
 
