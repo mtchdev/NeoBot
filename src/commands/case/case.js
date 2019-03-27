@@ -5,8 +5,8 @@ class Case extends Command {
     constructor(){
         super({
             name: 'Case',
-            info: 'Find a specific case with the ID',
-            usage: 'case [id]',
+            info: 'Find a specific case with for a specific user with their user ID',
+            usage: 'case [id] | case [id] -del | case [id] edit [reason]',
             category: 'Moderation'
         });
         
@@ -15,18 +15,41 @@ class Case extends Command {
     }
 
     async execute(message, client, args) {
+
+        if(['help', 'h'].indexOf(args[0])+1)
+            return super.cmdhelp(message);
+        
         if(!args[0])
             return Command.prototype.warn('Please specify a case ID.', message);
 
         let x = Number(args[0]);
         let param = args[1];
+        
         if(isNaN(x)) return;
+
+        if(['edit'].indexOf(args[1])+1)
+            return this.editCase(x, message, args);
 
         if(['-del', '-d', '-delete'].indexOf(param)+1)
             return this.deleteCase(x, message);
 
         await this.getCase(x, message, client);
 
+    }
+
+    async editCase(case_id, message, args) {
+        try {
+            let reason = args.slice(2).join(' ');
+            let data = {
+                case_id: case_id,
+                reason: reason
+            }
+            await super.apipost('cases/edit', data);
+            super.success('Case `#'+case_id+'` edited.', message);
+        } catch (err) {
+            super.log(err, 3);
+            super.warn('An error occurred.', message);
+        }
     }
 
     async getCase(case_id, message, client) {

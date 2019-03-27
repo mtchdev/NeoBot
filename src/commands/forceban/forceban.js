@@ -5,7 +5,7 @@ class Forceban extends Command {
     constructor() {
         super({
             name: 'Forceban',
-            info: 'Forcefully bans a user if they are inaccessable on the server.',
+            info: 'Forcefully bans a user if they are inaccessible on the server',
             usage: 'forceban [id] [reason]',
             category: 'Moderation'
         });
@@ -14,6 +14,9 @@ class Forceban extends Command {
     }
 
     async execute(message, client, args) {
+
+        if(['help', 'h'].indexOf(args[0])+1)
+            return super.cmdhelp(message);
 
         if(!args[0])
             return Command.prototype.warn('Please specify a user ID to ban.', message);

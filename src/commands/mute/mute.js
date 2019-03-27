@@ -5,8 +5,8 @@ class Mute extends Command {
     constructor(){
         super({
             name: 'Mute',
-            info: 'Mute a user',
-            usage: 'mute [user] [reason]',
+            info: 'Mute a user. A role will be applied to the user which prevents them from using text and voice channels',
+            usage: 'mute [@user] [reason]',
             category: 'Moderation'
         });
 
@@ -15,6 +15,9 @@ class Mute extends Command {
     }
 
     async execute(message, client, args) {
+
+        if(['help', 'h'].indexOf(args[0])+1)
+            return super.cmdhelp(message);
 
         if(['-init', '-i', '-setup'].indexOf(args[0])+1)
             return this.setup(message);

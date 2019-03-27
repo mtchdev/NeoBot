@@ -5,13 +5,17 @@ class Cases extends Command {
     constructor() {
         super({
             name: 'Cases',
-            info: 'Retreive all the moderation cases for a specified user',
-            usage: 'cases [user|uid]',
+            info: 'Retrieve all the moderation cases for a specified user',
+            usage: 'cases [@user|id]',
             category: 'Moderation'
         });
     }
 
     async execute(message, client, args) {
+
+        if(['help', 'h'].indexOf(args[0])+1)
+            return super.cmdhelp(message);
+        
         if(!args[0])
             return Command.prototype.warn('Please @mention a user or specify their UID to find cases.', message);
 
