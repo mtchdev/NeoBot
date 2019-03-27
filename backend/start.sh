@@ -1,0 +1,1 @@
+cd src && php artisan serve
