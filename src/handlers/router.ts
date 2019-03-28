@@ -19,8 +19,8 @@ class Router {
 
     route() {
         switch(this.cmd) {
-            case "warn": new Warn(this.message, this.client, this.args);
-            case "unban": new Unban(this.message, this.client, this.args);
+            case "warn": new Warn(this.message, this.client, this.args); break;
+            case "unban": new Unban(this.message, this.client, this.args); break;
             default: this.noCommand();
         }
     }
