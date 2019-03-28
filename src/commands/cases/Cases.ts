@@ -50,11 +50,16 @@ class Cases extends Command {
             let cases;
             arr.length >= 2 ? cases='cases' : cases='case';
             this.message.channel.send('Found '+arr.length+' '+cases+' for **'+guildUser.username+'#'+guildUser.discriminator+'**:');
+            var conc: string;
             arr.map((a: any) => {
                 console.log(a)
                 let type = a.type.charAt(0).toUpperCase() + a.type.slice(1);
-                this.message.channel.send(''+a.created_at+' | `[CASE #'+a.id+']` __'+type+'__: '+a.reason);
-            })
+                // this.message.channel.send(''+a.created_at+' | `[CASE #'+a.id+']` __'+type+'__: '+a.reason);
+                conc += a.created_at+' | `[CASE #'+a.id+']` __'+type+'__: '+a.reason+'\n';
+            });
+            setTimeout(() => {
+                this.message.channel.send(conc);
+            }, 5000);
         } catch (err) {
             super.log('Unable to find user (cases)', 3);
             super.warn('User not found.');
