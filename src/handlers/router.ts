@@ -1,4 +1,8 @@
 import Warn from '../commands/warn/Warn';
+import Unban from '../commands/unban/Unban';
+import Unmute from '../commands/unmute/Unmute';
+import Logger from './logger';
+import Purge from '../commands/purge/Purge';
 
 class Router {
     public cmd: any;
@@ -16,8 +20,17 @@ class Router {
 
     route() {
         switch(this.cmd) {
-            case "warn": new Warn().execute(this.message, this.client, this.args);
+            case "warn": new Warn(this.message, this.client, this.args); break;
+            case "unban": new Unban(this.message, this.client, this.args); break;
+            case "unmute": new Unmute(this.message, this.client, this.args); break;
+            case "purge": new Purge(this.message, this.client, this.args); break;
+            default: this.noCommand();
         }
+    }
+
+    noCommand() {
+        new Logger().log('Command '+this.cmd+' not found. Cancelling...', 3);
+        this.message.channel.send('Command not found.');
     }
 }
 

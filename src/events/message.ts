@@ -11,6 +11,7 @@ class Message {
     public cmd?: string = '';
 
     constructor(message: any) {
+        if(message.guild == null) return;
         this.message = message;
         this.client = message.client;
         this.guildID = message.guild.id;
@@ -23,6 +24,8 @@ class Message {
             let res = await axios.get(api_url+'guild/get', {headers:{guild_id:this.guildID}});
             this.prefix = res.data.prefix;
             this.cmd = this.args.shift().slice(res.data.prefix.length).toLowerCase();
+
+            if(!this.message.content.startsWith(this.prefix)) return;
 
             new Router(this.cmd, this.client, this.message, this.args);
         } catch (e) {

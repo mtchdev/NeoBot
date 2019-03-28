@@ -8,13 +8,15 @@ class Command extends Logger {
     info: string;
     usage: string;
     category: string;
+    message: any;
 
-    constructor(params: any){
+    constructor(params: any, message: any){
         super();
         this.name = params.name || '';
         this.info = params.info || '';
         this.usage = params.usage || '';
         this.category = params.category || 'All';
+        this.message = message;
         
     }
 
@@ -28,9 +30,9 @@ class Command extends Logger {
         return axios.post(api_url+url, data);
     }
 
-    async warn(msg: string, message: any) {
-        message.delete();
-        let mesg = await message.channel.send({embed: {
+    async warn(msg: string) {
+        this.message.delete();
+        let mesg = await this.message.channel.send({embed: {
             color: 15158332,
             title: "Error",
             description: `⚠ ${msg}`
@@ -39,16 +41,16 @@ class Command extends Logger {
         mesg.delete(3500);
     }
 
-    success(msg: string, message: any){
-        message.channel.send({embed: {
+    success(msg: string){
+      this.message.channel.send({embed: {
             color: 3066993,
             title: "Success",
             description: `✅ ${msg}`
         }});
     }
 
-    async cmdhelp(message: any) {
-        let res = await axios.get(api_url+'guild/get', {headers:{guild_id:message.guild.id}});
+    async cmdhelp() {
+        let res = await axios.get(api_url+'guild/get', {headers:{guild_id:this.message.guild.id}});
         let prefix = res.data.prefix;
         let embed = {
             "embed": {
@@ -79,7 +81,7 @@ class Command extends Logger {
               ]
             }
           }
-        message.channel.send(embed);
+        this.message.channel.send(embed);
     }
 }
 
