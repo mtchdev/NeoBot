@@ -1,5 +1,7 @@
 import Warn from '../commands/warn/Warn';
 
+import Logger from './logger';
+
 class Router {
     public cmd: any;
     public client: any;
@@ -17,7 +19,13 @@ class Router {
     route() {
         switch(this.cmd) {
             case "warn": new Warn(this.message, this.client, this.args);
+            default: this.noCommand();
         }
+    }
+
+    noCommand() {
+        new Logger().log('Command '+this.cmd+' not found. Cancelling...', 3);
+        this.message.channel.send('Command not found.');
     }
 }
 
