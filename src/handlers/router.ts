@@ -2,6 +2,7 @@ import Warn from '../commands/warn/Warn';
 import Unban from '../commands/unban/Unban';
 import Unmute from '../commands/unmute/Unmute';
 import Logger from './logger';
+import Purge from '../commands/purge/Purge';
 
 class Router {
     public cmd: any;
@@ -22,6 +23,7 @@ class Router {
             case "warn": new Warn(this.message, this.client, this.args); break;
             case "unban": new Unban(this.message, this.client, this.args); break;
             case "unmute": new Unmute(this.message, this.client, this.args); break;
+            case "purge": new Purge(this.message, this.client, this.args); break;
             default: this.noCommand();
         }
     }
