@@ -19,6 +19,7 @@ class GuildTable extends Migration
             $table->integer('owner_id');
             $table->integer('admin_role')->nullable();
             $table->integer('mod_role')->nullable();
+            $table->string('command_prefix', 255)->nullable();
             $table->timestamps();
         });
     }

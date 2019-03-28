@@ -20,7 +20,7 @@ class AddPunishmentsTable extends Migration
             $table->string('user', 255);
             $table->string('reason', 255);
             $table->string('actor', 255);
-            $table->string('expiry', 255);
+            $table->string('expiry', 255)->nullable();
             $table->timestamps();
         });
     }
