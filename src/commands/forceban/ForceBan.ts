@@ -14,6 +14,10 @@ class ForceBan extends Command {
             category: 'Moderation'
         }, message);
 
+        this.message = message;
+        this.client = client;
+        this.args = args;
+
         this.execute();
     }
 
