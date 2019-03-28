@@ -1,60 +1,68 @@
-const Command = require('../../structures/Command');
+import Command from '../../structures/Command';
 
 class Case extends Command {
 
-    constructor(){
+    message: any;
+    client: any;
+    args?: any;
+
+    constructor(message: any, client: any, args: any[]) {
         super({
             name: 'Case',
             info: 'Find a specific case with for a specific user with their user ID',
             usage: 'case [id] | case [id] -del | case [id] edit [reason]',
             category: 'Moderation'
-        });
-        
-        this.deleteCase = this.deleteCase.bind(this);
-        this.getCase = this.getCase.bind(this);
+        }, message);
+
+        this.message = message;
+        this.client = client;
+        this.args = args;
+
+        this.execute();
     }
 
-    async execute(message, client, args) {
 
-        if(['help', 'h'].indexOf(args[0])+1)
-            return super.cmdhelp(message);
+    async execute() {
+
+        if(['help', 'h'].indexOf(this.args[0])+1)
+            return super.cmdhelp();
         
-        if(!args[0])
-            return Command.prototype.warn('Please specify a case ID.', message);
+        if(!this.args[0])
+            return super.warn('Please specify a case ID.');
 
-        let x = Number(args[0]);
-        let param = args[1];
+        let x = Number(this.args[0]);
+        let param = this.args[1];
         
         if(isNaN(x)) return;
 
-        if(['edit'].indexOf(args[1])+1)
-            return this.editCase(x, message, args);
+        if(['edit'].indexOf(this.args[1])+1)
+            return this.editCase(x);
 
         if(['-del', '-d', '-delete'].indexOf(param)+1)
-            return this.deleteCase(x, message);
+            return this.deleteCase(x);
 
-        await this.getCase(x, message, client);
+        await this.getCase(x);
 
     }
 
-    async editCase(case_id, message, args) {
+    async editCase(case_id: number) {
         try {
-            let reason = args.slice(2).join(' ');
+            let reason = this.args.slice(2).join(' ');
             let data = {
                 case_id: case_id,
                 reason: reason
             }
             await super.apipost('cases/edit', data);
-            super.success('Case `#'+case_id+'` edited.', message);
+            super.success('Case `#'+case_id+'` edited.');
         } catch (err) {
             super.log(err, 3);
-            super.warn('An error occurred.', message);
+            super.warn('An error occurred.');
         }
     }
 
-    async getCase(case_id, message, client) {
+    async getCase(case_id: number) {
         try {
-            let res = await Command.prototype.apiget('cases/specific', {headers:{case:case_id}});
+            let res = await super.apiget('cases/specific', {headers:{case:case_id}});
             let data = res.data.data;
             let type = data.type.charAt(0).toUpperCase() + data.type.slice(1);
             var color;
@@ -78,9 +86,9 @@ class Case extends Command {
                 break;
             }
 
-            let a = await client.fetchUser(data.user);
+            let a = await this.client.fetchUser(data.user);
             avatarURL = a.avatarURL;
-            message.channel.send({
+            this.message.channel.send({
                 "embed": {
                     "color": color,
                     "timestamp": `${res.data.time}`,
@@ -114,20 +122,20 @@ class Case extends Command {
                 }
             });
         } catch (err) {
-            Command.prototype.warn('Case not found.', message);
+            super.warn('Case not found.');
         }
     }
 
-    async deleteCase(case_id, message) {
+    async deleteCase(case_id: number) {
         try {
-            await Command.prototype.apipost('cases/delete', {case:case_id});
-            Command.prototype.success('Successfully deleted case `#'+case_id+'`!', message);
+            await super.apipost('cases/delete', {case:case_id});
+            super.success('Successfully deleted case `#'+case_id+'`!');
         } catch (err) {
-            Command.prototype.warn(err, message);
+            super.warn(err);
         }
 
     }
 
 }
 
-module.exports = Case;
+export default Case;
