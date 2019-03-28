@@ -37,7 +37,7 @@ class Cases extends Command {
     }
 
     async getCases(user: any) {
-        let res = await Command.prototype.apiget('cases/get', {headers:{user:user}});
+        let res = await super.apiget('cases/get', {headers:{user:user}});
         let arr = res.data.data;
 
         try {
