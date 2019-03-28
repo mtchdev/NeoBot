@@ -84,7 +84,14 @@ class Mute extends Command {
 
         let res = await Command.prototype.apipost('mute/new', data);
         await user.addRole(role);
+        super.success('`[CASE #'+res.data.case+']` Muted '+user+' for '+reason);
+        try {
+            await user.send(`You were muted on ${this.message.guild.name}: ${reason}`);
+        } catch (err) {
+            Command.prototype.log('Failed to send message to target user', 3);
+        }
     }
+
 }
 
 export default Mute;
