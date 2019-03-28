@@ -15,10 +15,10 @@ class GuildTable extends Migration
     {
         Schema::create('guilds', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('guild_id');
-            $table->integer('owner_id');
-            $table->integer('admin_role')->nullable();
-            $table->integer('mod_role')->nullable();
+            $table->string('guild_id', 255);
+            $table->string('owner_id', 255);
+            $table->string('admin_role', 255)->nullable();
+            $table->string('mod_role', 255)->nullable();
             $table->timestamps();
         });
     }
