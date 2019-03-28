@@ -1,4 +1,5 @@
 import Warn from '../commands/warn/Warn';
+import Unban from '../commands/unban/Unban';
 
 import Logger from './logger';
 
@@ -19,6 +20,7 @@ class Router {
     route() {
         switch(this.cmd) {
             case "warn": new Warn(this.message, this.client, this.args);
+            case "unban": new Unban(this.message, this.client, this.args);
             default: this.noCommand();
         }
     }
