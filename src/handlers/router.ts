@@ -6,6 +6,7 @@ import Purge from '../commands/purge/Purge';
 import Mute from '../commands/mute/Mute';
 import Kick from '../commands/kick/Kick';
 import ForceBan from '../commands/forceban/ForceBan';
+import Cases from '../commands/cases/Cases';
 
 class Router {
     public cmd: any;
@@ -30,6 +31,7 @@ class Router {
             case "mute": new Mute(this.message, this.client, this.args); break;
             case "kick": new Kick(this.message, this.client, this.args); break;
             case "forceban": new ForceBan(this.message, this.client, this.args); break;
+            case "cases": new Cases(this.message, this.client, this.args); break;
             default: this.noCommand();
         }
     }
