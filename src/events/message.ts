@@ -24,6 +24,8 @@ class Message {
             this.prefix = res.data.prefix;
             this.cmd = this.args.shift().slice(res.data.prefix.length).toLowerCase();
 
+            if(!this.message.content.startsWith(this.prefix)) return;
+
             new Router(this.cmd, this.client, this.message, this.args);
         } catch (e) {
             console.log(e);
