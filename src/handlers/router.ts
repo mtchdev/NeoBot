@@ -4,6 +4,7 @@ import Unmute from '../commands/unmute/Unmute';
 import Logger from './logger';
 import Purge from '../commands/purge/Purge';
 import Mute from '../commands/mute/Mute';
+import Kick from '../commands/kick/Kick';
 
 class Router {
     public cmd: any;
@@ -26,6 +27,7 @@ class Router {
             case "unmute": new Unmute(this.message, this.client, this.args); break;
             case "purge": new Purge(this.message, this.client, this.args); break;
             case "mute": new Mute(this.message, this.client, this.args); break;
+            case "kick": new Kick(this.message, this.client, this.args); break;
             default: this.noCommand();
         }
     }
