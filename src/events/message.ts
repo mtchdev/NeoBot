@@ -11,6 +11,7 @@ class Message {
     public cmd?: string = '';
 
     constructor(message: any) {
+        if(message.guild == null) return;
         this.message = message;
         this.client = message.client;
         this.guildID = message.guild.id;
