@@ -8,13 +8,15 @@ class Warn extends Command {
     reason?: string = '';
     actor: any;
 
-    constructor(){
+    constructor(message: any, client: any, args: any[]){
         super({
             name: 'Warn',
             info: 'Warn a user on the server.',
             usage: 'warn [user] [reason]',
             category: 'Moderation'
-        });
+        }, message);
+
+        this.execute(message, client, args);
     }
 
     async execute(message: any, client: any, args: any[]){

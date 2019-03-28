@@ -16,7 +16,7 @@ class Router {
 
     route() {
         switch(this.cmd) {
-            case "warn": new Warn().execute(this.message, this.client, this.args);
+            case "warn": new Warn(this.message, this.client, this.args);
         }
     }
 }

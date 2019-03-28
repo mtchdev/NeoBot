@@ -9,7 +9,7 @@ class Command extends Logger {
     usage: string;
     category: string;
 
-    constructor(params: any){
+    constructor(params: any, message: any){
         super();
         this.name = params.name || '';
         this.info = params.info || '';
