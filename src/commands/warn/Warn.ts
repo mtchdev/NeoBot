@@ -3,10 +3,9 @@ import Command from '../../structures/Command';
 class Warn extends Command {
     // !warn [user] [reason]
 
-    guild_id: any;
-    user: any;
-    reason?: string = '';
-    actor: any;
+    message: any;
+    client: any;
+    args?: any;
 
     constructor(message: any, client: any, args: any[]){
         super({
@@ -16,52 +15,56 @@ class Warn extends Command {
             category: 'Moderation'
         }, message);
 
-        this.execute(message, client, args);
+        this.message = message;
+        this.client = client;
+        this.args = args;
+
+        this.execute();
     }
 
-    async execute(message: any, client: any, args: any[]){
-        if(!args[0])
+    async execute(){
+        if(!this.args[0])
         return super.warn('Please provide a user to warn.');
 
-        if(['help', 'h'].indexOf(args[0])+1)
-            return super.cmdhelp(message);
+        if(['help', 'h'].indexOf(this.args[0])+1)
+            return super.cmdhelp();
         
-        if(!args[1])
+        if(!this.args[1])
             return super.warn('Please provide a reason.');
 
-        this.reason = args.slice(1).join(' ');
-        this.user = message.mentions.members.first();
-        this.actor = message.author.id;
-        this.guild_id = message.guild.id;
+        let reason = this.args.slice(1).join(' ');
+        let user = this.message.mentions.members.first();
+        let actor = this.message.author.id;
+        let guild_id = this.message.guild.id;
 
-        if(typeof this.user == 'undefined')
+        if(typeof user == 'undefined')
             return super.warn('Please @mention a user on this server to warn.');
             
-        if(this.user.id == message.author.id)
+        if(user.id == this.message.author.id)
             return super.warn('You cannot warn yourself!');
 
-        await this.warnUser(message);       
+        await this.warnUser(guild_id, user, reason, actor);       
     }
 
-    async warnUser(message: any){
+    async warnUser(guild_id: string, user: any, reason: string, actor: string){
         let data = {
-            guild_id: this.guild_id,
-            user: this.user.id,
-            reason: this.reason,
-            actor: this.actor
+            guild_id: guild_id,
+            user: user.id,
+            reason: reason,
+            actor: actor
         }
 
         try {
             let res = await super.apipost('warn/new', data);
             if(res.data.message !== 200) return;
-            super.success('`[CASE #'+res.data.case+']`Warned '+this.user+' for '+this.reason);
+            super.success('`[CASE #'+res.data.case+']`Warned '+user+' for '+reason);
             try {
-                await this.user.send(`You were warned on ${message.guild.name}: ${this.reason}`);
+                await user.send(`You were warned on ${this.message.guild.name}: ${reason}`);
             } catch (err) {
                 super.log('Failed to send message to target user', 3);
             }
         } catch (err) {
-            super.log('An error occurred while warning: '+err, 2);
+            super.log('Tried to warn: '+err, 2);
             super.warn(err);
         }
     }

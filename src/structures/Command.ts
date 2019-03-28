@@ -49,8 +49,8 @@ class Command extends Logger {
         }});
     }
 
-    async cmdhelp(message: any) {
-        let res = await axios.get(api_url+'guild/get', {headers:{guild_id:message.guild.id}});
+    async cmdhelp() {
+        let res = await axios.get(api_url+'guild/get', {headers:{guild_id:this.message.guild.id}});
         let prefix = res.data.prefix;
         let embed = {
             "embed": {
@@ -81,7 +81,7 @@ class Command extends Logger {
               ]
             }
           }
-        message.channel.send(embed);
+        this.message.channel.send(embed);
     }
 }
 
