@@ -45,7 +45,7 @@ class Unmute extends Command {
         }
     } 
 
-    async unmute(guild: any, user:any , actor: string, res: any) {
+    async unmute(guild: any, user: any , actor: string, res: any) {
         let data = {
             guild_id: guild,
             user: user.id,
