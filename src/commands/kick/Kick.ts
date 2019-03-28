@@ -57,7 +57,7 @@ class Kick extends Command {
             await user.kick(reason);
         } catch (err) {
             super.log('Failed to kick a user (insufficient permissions)', 3);
-            return Command.prototype.warn('Failed to kick: insufficient permissions.');
+            return super.warn('Failed to kick: insufficient permissions.');
         }
         let res = await super.apipost('kick/new', data);
         super.success('`[CASE #'+res.data.case+']` Kicked '+user+' for '+reason+'.');
