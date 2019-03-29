@@ -21,7 +21,6 @@ class Mute extends Command {
         this.client = client;
         this.args = args;
 
-
         this.execute();
     }
 

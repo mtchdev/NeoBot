@@ -17,6 +17,8 @@ class Unban extends Command {
         this.message = message;
         this.client = client;
         this.args = args;
+
+        this.execute();
     }
 
     async execute() {
