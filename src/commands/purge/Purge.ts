@@ -37,9 +37,6 @@ class Purge extends Command {
         if(!deleteCount || deleteCount < 1 || deleteCount > 99)
             return super.warn("Please provide a number between 1 and 99 for the number of messages to delete.");
 
-        // check if vulgar words (cvnt for now)
-        if(this.message.content == 'cunt') return;
-
         const fetched = await this.message.channel.fetchMessages({limit: deleteCount});
 
         try {
