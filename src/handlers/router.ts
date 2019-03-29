@@ -10,6 +10,7 @@ import Cases from '../commands/cases/Cases';
 import Case from '../commands/case/Case';
 import Ban from '../commands/ban/Ban';
 import AddRole from '../commands/addrole/AddRole';
+import RemoveRole from '../commands/removerole/RemoveRole';
 
 class Router {
     public cmd: any;
@@ -38,6 +39,7 @@ class Router {
             case "case": new Case(this.message, this.client, this.args); break;
             case "ban": new Ban(this.message, this.client, this.args); break;
             case "addrole": new AddRole(this.message, this.client, this.args); break;
+            case "removerole": new RemoveRole(this.message, this.client, this.args); break;
             default: this.noCommand();
         }
     }
