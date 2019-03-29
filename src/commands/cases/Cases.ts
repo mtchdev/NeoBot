@@ -49,17 +49,16 @@ class Cases extends Command {
 
             let cases;
             arr.length >= 2 ? cases='cases' : cases='case';
-            this.message.channel.send('Found '+arr.length+' '+cases+' for **'+guildUser.username+'#'+guildUser.discriminator+'**:');
-            let waitMessage = await this.message.channel.send('Loading cases (this may take a while)...');
             var conc: string = '';
-            arr.map((a: any) => {
-                let type = a.type.charAt(0).toUpperCase() + a.type.slice(1);
-                conc += a.created_at+' | `[CASE #'+a.id+']` __'+type+'__: '+a.reason+'\n';
-            });
-            setTimeout(() => {
-                waitMessage.delete();
-                this.message.channel.send(conc);
-            }, 5000);
+            conc = 'Found '+arr.length+' '+cases+' for **'+guildUser.username+'#'+guildUser.discriminator+'**:\n';
+            for (let i = 0; i < arr.length; i++) {
+                let e = arr[i];
+                let type = e.type.charAt(0).toUpperCase() + e.type.slice(1);
+                conc += e.created_at+' | `[CASE #'+e.id+']` __'+type+'__: '+e.reason+'\n';
+                if(i == arr.length-1) {
+                    this.message.channel.send(conc);
+                }
+            }
         } catch (err) {
             super.log('Unable to find user (cases)', 3);
             super.warn('User not found.');
