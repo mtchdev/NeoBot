@@ -8,6 +8,7 @@ import Kick from '../commands/kick/Kick';
 import ForceBan from '../commands/forceban/ForceBan';
 import Cases from '../commands/cases/Cases';
 import Case from '../commands/case/Case';
+import Ban from '../commands/ban/Ban';
 
 class Router {
     public cmd: any;
@@ -34,6 +35,7 @@ class Router {
             case "forceban": new ForceBan(this.message, this.client, this.args); break;
             case "cases": new Cases(this.message, this.client, this.args); break;
             case "case": new Case(this.message, this.client, this.args); break;
+            case "ban": new Ban(this.message, this.client, this.args); break;
             default: this.noCommand();
         }
     }
